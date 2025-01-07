@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:id="@+id/scrollViewAnalyzePhoto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
+        android:fillViewport="true"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/analysis_photo"
+                android:textSize="25sp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <TextView
+                style="@style/TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/photo" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <ImageView
+                android:id="@+id/imageViewAnalyze"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/photo" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/pale_red_purple_hint_dark"
+                    android:gravity="center"
+                    android:text="@string/palette"
+                    android:textSize="20sp" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageViewVibrantColor"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/palette" />
+
+                    <ImageView
+                        android:id="@+id/imageViewLightVibrantColor"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/palette" />
+
+                    <ImageView
+                        android:id="@+id/imageViewDarkVibrantColor"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/palette" />
+
+                    <ImageView
+                        android:id="@+id/imageViewMuted"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/palette" />
+
+                    <ImageView
+                        android:id="@+id/imageViewDarkMuted"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/palette" />
+
+                    <ImageView
+                        android:id="@+id/imageViewLightMuted"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/palette" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <TextView
+                style="@style/TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@color/pale_red_purple_hint_dark"
+                android:gravity="center"
+                android:text="@string/dominant_color"
+                android:textSize="20sp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <ImageView
+                android:id="@+id/imageViewDominantColor"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/dominant_color" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <TextView
+                android:id="@+id/textViewPredictedEmotion"
+                style="@style/TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@color/pale_red_purple_hint_dark"
+                android:gravity="center"
+                android:text="@string/predicted_emotion"
+                android:textSize="20sp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <LinearLayout
+                android:id="@+id/linearLayoutIpAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="50dp"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/need_to_change_ip_address" />
+
+                <EditText
+                    android:id="@+id/editTextIpAddress"
+                    style="@style/EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints=""
+                    android:hint="@string/ip_address"
+                    android:inputType="text"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:scrollbars="vertical"
+                    android:textColorHighlight="@color/sea_foam_pink" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
+                <Button
+                    android:id="@+id/buttonChangeIpAddress"
+                    style="@style/Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/change_ip_address" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutRight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="50dp"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/right_ask" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/buttonYes"
+                        style="@style/Button"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/yes" />
+
+                    <Button
+                        android:id="@+id/buttonNo"
+                        style="@style/Button"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/no" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutClose"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/buttonClose"
+                    style="@style/Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/close"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutCorrectEmotionalState"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="50dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    style="@style/TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/describe_your_emotional_state" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
+                <Spinner
+                    android:id="@+id/spinnerEmotions"
+                    style="@style/Spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/spinner_bg"
+                    android:popupBackground="@drawable/emotion_bg" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp" />
+
+                <Button
+                    android:id="@+id/buttonCorrect"
+                    style="@style/Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/correct" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+</FrameLayout>

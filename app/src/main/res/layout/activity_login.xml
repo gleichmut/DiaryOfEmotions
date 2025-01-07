@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayoutLogin"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:layout_marginTop="30dp"
+    android:fillViewport="true"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        style="@style/TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/enter"
+        android:textSize="25sp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
+
+    <EditText
+        android:id="@+id/editTextEmail"
+        style="@style/EditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints="emailAddress"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:selectAllOnFocus="true" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+    <EditText
+        android:id="@+id/editTextPassword"
+        style="@style/EditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints="password"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:selectAllOnFocus="true" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+    <TextView
+        android:id="@+id/textViewForgotPassword"
+        style="@style/TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/forgot_password"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp">
+
+        <Button
+            android:id="@+id/buttonLogin"
+            style="@style/Button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="64dp"
+            android:layout_weight="1"
+            android:text="@string/login" />
+
+        <Button
+            android:id="@+id/buttonRegister"
+            style="@style/Button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="64dp"
+            android:layout_weight="1"
+            android:text="@string/register" />
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="64dp"
+        android:layout_marginBottom="64dp"
+        android:visibility="gone" />
+
+</LinearLayout>

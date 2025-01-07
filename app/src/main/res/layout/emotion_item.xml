@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/emotionImageView"
+        style="@style/TextView"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:contentDescription="@string/emotion"
+        android:scaleType="centerInside" />
+
+    <TextView
+        android:id="@+id/emotionTextView"
+        style="@style/TextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:gravity="center" />
+
+</LinearLayout>
+

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayoutRegister"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:layout_marginTop="30dp"
+    android:fillViewport="true"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        style="@style/TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/register"
+        android:textSize="25sp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
+
+    <EditText
+        android:id="@+id/editTextName"
+        style="@style/EditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints="name"
+        android:hint="@string/name"
+        android:inputType="textCapSentences"
+        android:selectAllOnFocus="true" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+    <EditText
+        android:id="@+id/editTextEmail"
+        style="@style/EditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints="emailAddress"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:selectAllOnFocus="true" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+    <EditText
+        android:id="@+id/editTextPassword"
+        style="@style/EditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints="password"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:selectAllOnFocus="true" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+    <Button
+        android:id="@+id/buttonRegister"
+        style="@style/Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="64dp"
+        android:text="@string/register" />
+</LinearLayout>

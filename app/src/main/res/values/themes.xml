@@ -1,0 +1,71 @@
+<resources>
+
+    <style name="Base.Theme.DiaryOfEmotions" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/pale_red_purple</item>
+        <item name="colorPrimaryDark">@color/sea_foam_pink</item>
+        <item name="colorAccent">@color/dark_purple_red</item>
+        <item name="android:windowBackground">@color/sea_foam_pink</item>
+        <item name="android:textColorPrimary">@color/black</item>
+        <item name="colorControlActivated">@color/dark_purple_red</item>
+        <item name="colorControlHighlight">@color/dark_purple_red</item>
+        <item name="fontFamily">@font/poiret_one</item>
+        <item name="android:textColorHint">@color/dark_purple_red</item>
+        <item name="android:textStyle">bold</item>
+
+    </style>
+
+    <style name="Theme.DiaryOfEmotions" parent="Base.Theme.DiaryOfEmotions" />
+
+    <style name="CustomFloatingButton" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="backgroundTint">@color/dark_purple_red</item>
+        <item name="tint">@color/sea_foam_pink</item>
+    </style>
+
+    <style name="TextView">
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="EditText">
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:maxWidth">488dp</item>
+        <item name="android:gravity">center|start</item>
+        <item name="android:background">@color/pale_red_purple_hint_light</item>
+    </style>
+
+    <style name="ImageView">
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="Spinner">
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="Button">
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="ImageButton">
+        <item name="android:backgroundTint">@color/pale_red_purple_hint_light</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:tint">@color/brownish_black</item>
+    </style>
+</resources>

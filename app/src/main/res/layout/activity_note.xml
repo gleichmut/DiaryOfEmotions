@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scrollViewNote"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/TextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"
+                android:gravity="center"
+                android:text="@string/note"
+                android:textSize="25sp" />
+
+            <ImageButton
+                android:id="@+id/imageButtonEdit"
+                style="@style/ImageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:contentDescription="@string/edit"
+                android:src="@android:drawable/ic_menu_edit"
+                app:tint="@color/white" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+        <TextView
+            android:id="@+id/datetimeNoteTextView"
+            style="@style/TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+        <TextView
+            android:id="@+id/titleNoteTextView"
+            style="@style/TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+        <TextView
+            android:id="@+id/textViewTextNote"
+            style="@style/TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/pale_red_purple_hint_dark" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+        <TextView
+            android:id="@+id/textViewPhoto"
+            style="@style/TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/photo" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+        <TextView
+            android:id="@+id/textViewClickToAnalyzePhoto"
+            style="@style/TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/pale_red_purple_hint_dark"
+            android:gravity="center"
+            android:text="@string/click_to_analyze_photo"
+            android:textSize="22sp"
+            android:visibility="gone" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <Button
+            android:id="@+id/buttonClose"
+            style="@style/Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/close" />
+    </LinearLayout>
+</ScrollView>

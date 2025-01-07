@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="light_gray">#CECCCC</color>
+    <color name="pale_red_purple">#9D6381</color>
+    <color name="sea_foam_pink">#FFE0ED</color>
+    <color name="brownish_black">#004D523C</color>
+    <color name="dark_purple_red">#612940</color>
+    <color name="pale_red_purple_hint">#B17292</color>
+    <color name="pale_red_purple_hint_light">#80DC96BA</color>
+    <color name="pale_red_purple_hint_dark">#66DC96BA</color>
+    <color name="pale_red_purple_hint_light_text">#DC96BA</color>
+    <color name="pale_red_purple_note_background">#B3B17292</color>
+</resources>

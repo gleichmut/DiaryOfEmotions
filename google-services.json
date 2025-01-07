@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "93764093684",
+    "project_id": "diary-of-emotions-98e1a",
+    "storage_bucket": "diary-of-emotions-98e1a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:93764093684:android:251793d13b3f2216ccc0a1",
+        "android_client_info": {
+          "package_name": "com.fuxkinghatred.diaryofemotions"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMsWfDQ9GSdEUTncp6BQ63ny_VjtOTk7o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

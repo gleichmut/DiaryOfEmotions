@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_note">Добавление заметки</string>
+    <string name="save">Сохранить</string>
+    <string name="describe_your_emotional_state">Ваше эмоциональное состояние:</string>
+    <string name="photo">Фото:</string>
+    <string name="text_your_note_here">Напишите вашу заметку тут:</string>
+    <string name="title_of_note">Заголовок заметки:</string>
+    <string name="time">Время:</string>
+    <string name="date">Дата:</string>
+    <string name="uploaded_photos">Загруженные фото</string>
+    <string name="choose_date">Выбрать дату</string>
+    <string name="choose_time">Выбрать время</string>
+    <string name="title">Заголовок:</string>
+    <string name="note">Заметка:</string>
+    <string name="correct">Скорректировать</string>
+    <string name="analyze_photo">Анализировать фото</string>
+    <string name="list_of_notes">Список заметок</string>
+    <string name="analysis_photo">Анализ фото</string>
+    <string name="result_of_analysis_photo">Результат анализа фото</string>
+    <string name="predicted_emotion">Предсказанная эмоция</string>
+    <string name="right_ask">Верно?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="email">Почта</string>
+    <string name="password">Пароль</string>
+    <string name="enter">Вход</string>
+    <string name="name">Имя</string>
+    <string name="logoff">Выйти</string>
+    <string name="check_null_fields">Проверьте пустые поля!</string>
+    <string name="emotion">Эмоция</string>
+    <string name="select_date">Выберите дату!</string>
+    <string name="select_time">Выберите время!</string>
+    <string name="enter_title">Введите заголовок!</string>
+    <string name="enter_text">Введите текст заметки!</string>
+    <string name="select_emotion">Выберите эмоцию!</string>
+    <string name="error_creating_uri">Ошибка создания URI для камеры</string>
+    <string name="permissions_not_granted">Разрешения не предоставлены</string>
+    <string name="error_loading_image">Ошибка загрузки изображения</string>
+    <string name="note_saved">Заметка сохранена :)</string>
+    <string name="note_not_saved">Заметка не сохранена :(</string>
+    <string name="close">Закрыть</string>
+    <string name="record_voice">Записать голос</string>
+    <string name="microphone_permission_not_granted">Разрешение на микрофон не предоставлено</string>
+    <string name="speech_recognition_not_supported">Распознавание речи не поддерживается</string>
+    <string name="say_something">Скажите что-нибудь…</string>
+    <string name="error_starting_speech_recognition">Ошибка запуска распознавания речи</string>
+    <string name="select_source_image">Выберите источник изображения</string>
+    <string name="camera">Камера</string>
+    <string name="gallery">Галерея</string>
+    <string name="forgot_password">Забыли пароль?</string>
+    <string name="enter_email">Введите почту!</string>
+    <string name="not_valid_email">Невалидный адрес почты</string>
+    <string name="reset_instructions_sent_to_email">Инструкции по сбросу пароля отправлены на ваш email</string>
+    <string name="dd_mmmm_yyyy_hh_mm">dd MMMM yyyy HH:mm</string>
+    <string name="ru">ru</string>
+    <string name="d_mmmm_yyyy">d MMMM yyyy</string>
+    <string name="hh_mm">HH:mm</string>
+    <string name="error_prediction">Ошибка предсказания</string>
+    <string name="palette">Палитра</string>
+    <string name="ip_address">IP-адрес</string>
+    <string name="need_to_change_ip_address">Нужно поменять IP-адрес сервера…</string>
+    <string name="change_ip_address">Поменять IP-адрес</string>
+    <string name="datetime_is_invalid">Дата или время выбраны неверно</string>
+    <string name="click_to_analyze_photo">Нажмите на фото для анализа</string>
+    <string name="dominant_color">Превалирующий цвет</string>
+    <string name="edit">Редактировать</string>
+    <string name="choose_image">Выбрать изображение</string>
+    <string name="clear_text_of_note">Очистить текст заметки</string>
+    <string name="error_copy_image">Ошибка копирования изображения</string>
+    <string name="invalid_ip_address">Неправильно введен IP-адрес</string>
+    <string name="prediction_saved">Предсказание сохранено</string>
+    <string name="prediction_not_saved">Ошибка сохранения предсказания</string>
+    <string name="palette_is_null">Пустая палитра!</string>
+    <string name="opencv_success_load">OpenCV успешно загружен</string>
+    <string name="opencv_fail_load">OpenCV не загружен</string>
+    <string name="error_load_image">Ошибка загрузки изображения</string>
+    <string name="registration_successful">Вы успешно зарегистрированы!</string>
+    <string name="weak_password">Слабый пароль. Длина пароля должна быть больше 5 символов.\n</string>
+    <string name="invalid_name">Невалидное имя</string>
+    <string name="user_exists">Пользователь уже существует!</string>
+
+    <string-array name="emotions">
+        <item>Радуюсь</item>
+        <item>Грущу</item>
+        <item>Злюсь</item>
+        <item>Боюсь</item>
+        <item>Удивляюсь</item>
+    </string-array>
+</resources>
