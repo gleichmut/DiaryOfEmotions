@@ -182,7 +182,7 @@ public class AnalyzePhotosActivity extends AppCompatActivity {
     /**
      * Массив для хранения HSL значений цвета.
      */
-    private float[] hsl = new float[3];
+    private final float[] hsl = new float[3];
 
     /**
      * Предсказанная эмоция.
