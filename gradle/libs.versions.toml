@@ -15,7 +15,6 @@ firebaseStorage = "21.0.1"
 glide_version = "4.16.0"
 mockitoAndroid = "3.12.4"
 mockitoCore = "4.11.0"
-opencv = "4.10.0"
 play_services_auth_version = "21.3.0"
 annotation = "1.9.1"
 lifecycleLivedataKtx = "2.8.7"
@@ -43,7 +42,6 @@ firebase-storage = { group = "com.google.firebase", name = "firebase-storage", v
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide_version" }
 mockito-android = { module = "org.mockito:mockito-android", version.ref = "mockitoAndroid" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore" }
-opencv = { module = "org.opencv:opencv", version.ref = "opencv" }
 play-services-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "play_services_auth_version" }
 annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
 lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
