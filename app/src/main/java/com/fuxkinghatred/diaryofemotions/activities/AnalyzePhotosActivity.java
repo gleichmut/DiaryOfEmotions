@@ -48,8 +48,6 @@ import com.fuxkinghatred.diaryofemotions.models.Note;
 import com.fuxkinghatred.diaryofemotions.repositories.EmotionPredictionRepository;
 import com.fuxkinghatred.diaryofemotions.viewmodels.AnalyzePhotoViewModel;
 
-import org.opencv.android.OpenCVLoader;
-
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -214,8 +212,6 @@ public class AnalyzePhotosActivity extends AppCompatActivity {
                     return insets;
                 });
 
-        // Если модуль OpenCV не загружен, то не работаем
-        if (loadOpenCV()) return;
         // Инициализация view элементов
         initViews();
         // Скрываем ScrollView и показываем ProgressBar, пока предсказывается
@@ -235,30 +231,6 @@ public class AnalyzePhotosActivity extends AppCompatActivity {
         setListeners();
         // Устанавливаем наблюдателей
         setObservers();
-    }
-
-    /**
-     * Загружает модуль OpenCV.
-     */
-    private boolean loadOpenCV() {
-        if (OpenCVLoader.initLocal()) {
-            Log.d(
-                    TAG,
-                    "loadOpenCV: " +
-                            R.string.opencv_success_load
-            );
-        } else {
-            Log.e(
-                    TAG,
-                    "loadOpenCV: " +
-                            R.string.opencv_fail_load
-            );
-            Toast.makeText(this,
-                    R.string.opencv_fail_load,
-                    Toast.LENGTH_LONG).show();
-            return true;
-        }
-        return false;
     }
 
     /**

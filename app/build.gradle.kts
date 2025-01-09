@@ -51,7 +51,6 @@ dependencies {
     implementation(libs.glide)
     implementation(libs.firebase.database)
     implementation(libs.play.services.auth)
-    implementation(libs.opencv)
     implementation(libs.palette)
     implementation(libs.retrofit)
     implementation(libs.gson)

@@ -18,7 +18,7 @@
     <string name="list_of_notes">Список заметок</string>
     <string name="analysis_photo">Анализ фото</string>
     <string name="result_of_analysis_photo">Результат анализа фото</string>
-    <string name="predicted_emotion">Предсказанная эмоция</string>
+    <string name="predicted_emotion">Предсказанная эмоция:</string>
     <string name="right_ask">Верно?</string>
     <string name="yes">Да</string>
     <string name="no">Нет</string>

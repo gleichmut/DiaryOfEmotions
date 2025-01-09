@@ -1,13 +1,11 @@
 package com.fuxkinghatred.diaryofemotions.viewmodels;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.fuxkinghatred.diaryofemotions.R;
 import com.fuxkinghatred.diaryofemotions.constants.Constants;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
