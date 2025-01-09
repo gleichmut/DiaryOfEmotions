@@ -46,7 +46,6 @@ import com.fuxkinghatred.diaryofemotions.factories.AnalyzePhotoViewModelFactory;
 import com.fuxkinghatred.diaryofemotions.models.Emotion;
 import com.fuxkinghatred.diaryofemotions.models.Note;
 import com.fuxkinghatred.diaryofemotions.repositories.EmotionPredictionRepository;
-import com.fuxkinghatred.diaryofemotions.utils.ColorUtils;
 import com.fuxkinghatred.diaryofemotions.viewmodels.AnalyzePhotoViewModel;
 
 import org.opencv.android.OpenCVLoader;
@@ -183,7 +182,7 @@ public class AnalyzePhotosActivity extends AppCompatActivity {
     /**
      * Массив для хранения HSL значений цвета.
      */
-    private float[] hsl;
+    private float[] hsl = new float[3];
 
     /**
      * Предсказанная эмоция.
@@ -486,13 +485,6 @@ public class AnalyzePhotosActivity extends AppCompatActivity {
     }
 
     /**
-     * Преобразует RGB в HSL.
-     */
-    private float[] getHslFromRgb(int r, int g, int b) {
-        return ColorUtils.rgbToHsl(r, g, b);
-    }
-
-    /**
      * Устанавливает фон для ImageView.
      */
     private void setImageViewBackground(ImageView imageView, int color) {
@@ -685,9 +677,13 @@ public class AnalyzePhotosActivity extends AppCompatActivity {
                                     // Получаем доминантный цвет из палитры
                                     int color = getDominantColorFromPalette(palette);
                                     // Получаем HSL значения цвета
-                                    hsl = getHslFromRgb(Color.red(color),
+                                    // Возвращает h: 0-360, s: 0-1, l: 0-1
+                                    androidx.core.graphics.ColorUtils.RGBToHSL(Color.red(color),
                                             Color.green(color),
-                                            Color.blue(color));
+                                            Color.blue(color), hsl);
+                                    // Делаем s: 0-100, l: 0-100
+                                    hsl[1] = hsl[1] * 100;
+                                    hsl[2] = hsl[2] * 100;
                                     // Запускаем предсказание эмоции
                                     analyzePhotoViewModel.predictEmotion((int) hsl[0],
                                             (int) hsl[1],

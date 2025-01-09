@@ -10,7 +10,6 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <!--Разрешение на использование микрофона-->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -24,11 +23,11 @@
         <activity
             android:name=".activities.RegistrationActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.LoginActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -40,18 +39,18 @@
         <activity
             android:name=".activities.AnalyzePhotosActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.NoteActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.AddNoteActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.MyNotesActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustPan" />
     </application>
 </manifest>

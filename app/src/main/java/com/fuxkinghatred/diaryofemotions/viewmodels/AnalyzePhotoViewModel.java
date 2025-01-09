@@ -229,7 +229,7 @@ public class AnalyzePhotoViewModel extends AndroidViewModel {
         if (emotionApi == null) {
             Log.d(
                     TAG,
-                    "predictEmotion" +
+                    "predictEmotion: " +
                             "predictEmotion: emotionApi is null, IP is not valid"
             );
             errorMessage.setValue("IP address is not set or not valid");
@@ -237,7 +237,7 @@ public class AnalyzePhotoViewModel extends AndroidViewModel {
         }
         Log.d(
                 TAG,
-                "predictEmotion" +
+                "predictEmotion: " +
                         "predictEmotion:  h = " + h + " s = " + s + " l = " + l
         );
         // Создание запроса к API
@@ -251,7 +251,7 @@ public class AnalyzePhotoViewModel extends AndroidViewModel {
                                    @NonNull Response<PredictionResponse> response) {
                 Log.d(
                         TAG,
-                        "predictEmotion" +
+                        "predictEmotion: " +
                                 "code = " + response.code()
                 );
                 // Проверка успешности ответа
@@ -263,13 +263,13 @@ public class AnalyzePhotoViewModel extends AndroidViewModel {
                         isIpAddressInputVisible.setValue(false);
                         Log.d(
                                 TAG,
-                                "predictEmotion" +
+                                "predictEmotion: " +
                                         "success, emotion = " + predictionResponse.getPredictedEmotion()
                         );
                     } else {
                         Log.e(
                                 TAG,
-                                "predictEmotion" +
+                                "predictEmotion: " +
                                         "Response body is null"
                         );
                         errorMessage.setValue("Response body is null");
@@ -277,7 +277,7 @@ public class AnalyzePhotoViewModel extends AndroidViewModel {
                 } else {
                     Log.e(
                             TAG,
-                            "predictEmotion" +
+                            "predictEmotion: " +
                                     "Server error: " + response.code() + " " + response.message()
                     );
                     errorMessage.setValue("Server error: " + response.code() + " " + response.message());
@@ -290,7 +290,7 @@ public class AnalyzePhotoViewModel extends AndroidViewModel {
             public void onFailure(@NonNull Call<PredictionResponse> call, @NonNull Throwable t) {
                 Log.e(
                         TAG,
-                        "predictEmotion" +
+                        "predictEmotion: " +
                                 "Network error: " + t.getMessage()
                 );
                 String message = "Network error: " + t.getMessage();
@@ -299,21 +299,21 @@ public class AnalyzePhotoViewModel extends AndroidViewModel {
                     message = "Не удалось подключиться к серверу. Проверьте IP адрес.";
                     Log.e(
                             TAG,
-                            "predictEmotion" +
+                            "predictEmotion: " +
                                     "ConnectException - " + t.getMessage()
                     );
                 } else if (t instanceof SocketTimeoutException) {
                     message = "Превышено время ожидания ответа от сервера. Проверьте IP адрес.";
                     Log.e(
                             TAG,
-                            "predictEmotion" +
+                            "predictEmotion: " +
                                     "SocketTimeoutException - " + t.getMessage()
                     );
                 } else if (t instanceof IOException) {
                     message = "Ошибка ввода вывода";
                     Log.e(
                             TAG,
-                            "predictEmotion" +
+                            "predictEmotion: " +
                                     "IOException - " + t.getMessage()
                     );
                 }
@@ -337,7 +337,7 @@ public class AnalyzePhotoViewModel extends AndroidViewModel {
     public LiveData<Boolean> saveEmotionPrediction(int h, int s, int l, String emotion) {
         Log.d(
                 TAG,
-                "saveEmotionPrediction" +
+                "saveEmotionPrediction: " +
                         "h = " + h + " s = " + s + " l = " + l + " emotion = " + emotion
         );
         return repository.saveEmotionPrediction(h, s, l, emotion);
