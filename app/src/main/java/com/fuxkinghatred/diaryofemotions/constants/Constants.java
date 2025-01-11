@@ -63,7 +63,7 @@ public class Constants {
         /**
          * Тег для логирования в адаптере изображений.
          */
-        public static final String TAG_IMAGE_ADAPTER                 = "ImageAdapter";
+        public static final String TAG_IMAGE_ADAPTER = "ImageAdapter";
         /**
          * Тег для логирования в репозитории предсказания эмоций.
          */
@@ -125,6 +125,10 @@ public class Constants {
         /**
          * Таблица с заметками.
          */
-        public static final String TABLE_NOTES              = "notes";
+        public static final String TABLE_NOTES = "notes";
+    }
+
+    public static class Urls {
+        public static final String BASE_URL_RETROFIT = "https://fuxkinghatred.pythonanywhere.com";
     }
 }
