@@ -2,8 +2,6 @@
 package com.fuxkinghatred.diaryofemotions.viewmodels;
 
 import android.app.Application;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -38,165 +36,46 @@ public class AnalyzePhotoViewModel extends AndroidViewModel {
     /**
      * Интерфейс для выполнения HTTP запросов к API.
      */
-    private              EmotionApi                  emotionApi;
+    private EmotionApi emotionApi;
     /**
      * LiveData для хранения предсказанной эмоции.
      */
-    private final        MutableLiveData<String>     predictedEmotion        = new MutableLiveData<>();
+    private final MutableLiveData<String> predictedEmotion = new MutableLiveData<>();
     /**
      * LiveData для хранения сообщения об ошибке.
      */
-    private final        MutableLiveData<String>     errorMessage            = new MutableLiveData<>();
-    /**
-     * LiveData для определения видимости поля ввода IP адреса.
-     */
-    private final        MutableLiveData<Boolean>    isIpAddressInputVisible = new MutableLiveData<>(true);
-    /**
-     * Текущий IP адрес сервера.
-     */
-    private              String                      currentIpAddress;
-    /**
-     * SharedPreferences для хранения IP адреса.
-     */
-    private final        SharedPreferences           sharedPreferences;
-    /**
-     * Ключ для сохранения IP адреса в SharedPreferences.
-     */
-    private static final String                      PREF_IP_ADDRESS         = "pref_ip_address";
+    private final MutableLiveData<String> errorMessage = new MutableLiveData<>();
     /**
      * Репозиторий для работы с предсказаниями эмоций.
      */
-    private final        EmotionPredictionRepository repository;
+    private final EmotionPredictionRepository repository;
 
     /**
      * Конструктор ViewModel.
      *
-     * @param application  Контекст приложения.
-     * @param repository Репозиторий для работы с предсказаниями эмоций.
+     * @param application Контекст приложения.
+     * @param repository  Репозиторий для работы с предсказаниями эмоций.
      */
     public AnalyzePhotoViewModel(Application application, EmotionPredictionRepository repository) {
         super(application);
-        sharedPreferences = application.getSharedPreferences("AppPrefs", Context.MODE_PRIVATE);
-        currentIpAddress  = sharedPreferences.getString(PREF_IP_ADDRESS, null);
-        createRetrofitInstance(getDefaultIpAddress());
+        createRetrofitInstance();
         this.repository = repository;
-        Log.d(
-                TAG,
-                "AnalyzePhotoViewModel: " +
-                        "initialized with IP " + currentIpAddress
-        );
-    }
-
-    /**
-     * Получает IP адрес по умолчанию (для эмулятора или null).
-     *
-     * @return IP адрес по умолчанию.
-     */
-    private String getDefaultIpAddress() {
-        if (currentIpAddress == null) {
-            // Установка IP адреса для эмулятора
-            currentIpAddress = isEmulator() ? "10.0.2.2" : null;
-            Log.d(
-                    TAG,
-                    "getDefaultIpAddress: " +
-                            "set default IP " + currentIpAddress
-            );
-        }
-        return currentIpAddress;
-    }
-
-    /**
-     * Возвращает LiveData, определяющую видимость поля ввода IP адреса.
-     *
-     * @return LiveData с видимостью поля ввода IP адреса.
-     */
-    public LiveData<Boolean> getIpAddressInputVisible() {
-        return isIpAddressInputVisible;
-    }
-
-    /**
-     * Проверяет, запущено ли приложение на эмуляторе.
-     *
-     * @return true, если приложение запущено на эмуляторе, false - в противном случае.
-     */
-    private boolean isEmulator() {
-        // Проверка по отпечаткам сборки
-        boolean isEmulator = android.os.Build.FINGERPRINT.contains("vbox")
-                || android.os.Build.FINGERPRINT.contains("generic")
-                || android.os.Build.MODEL.contains("google_sdk")
-                || android.os.Build.MODEL.contains("Emulator")
-                || android.os.Build.MODEL.contains("Android SDK built for x86");
-        Log.d(
-                TAG,
-                "isEmulator: " + isEmulator
-        );
-        return isEmulator;
-    }
-
-    /**
-     * Меняет IP адрес сервера и сохраняет его в SharedPreferences.
-     *
-     * @param ipAddress Новый IP адрес сервера.
-     */
-    public void changeIpAddress(String ipAddress) {
-        createRetrofitInstance(ipAddress);
-        saveIpAddress(ipAddress);
-        isIpAddressInputVisible.setValue(false);
-        Log.d(
-                TAG,
-                "changeIpAddress: " +
-                        String.format("IP Address changed from %s to %s", currentIpAddress, ipAddress)
-        );
-        currentIpAddress = ipAddress;
-    }
-
-    /**
-     * Сохраняет IP адрес в SharedPreferences.
-     *
-     * @param ipAddress IP адрес для сохранения.
-     */
-    private void saveIpAddress(String ipAddress) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(PREF_IP_ADDRESS, ipAddress);
-        editor.apply();
-        Log.d(
-                TAG,
-                "saveIpAddress" +
-                        "saved IP " + ipAddress
-        );
     }
 
     /**
      * Создает экземпляр Retrofit для выполнения HTTP запросов.
-     *
-     * @param ipAddress IP адрес сервера.
      */
-    private void createRetrofitInstance(String ipAddress) {
-        if (ipAddress == null || ipAddress.isEmpty()) {
-            Log.d(
-                    TAG,
-                    "createRetrofitInstance" +
-                            "IP address is not set. Cannot create Retrofit instance"
-            );
-            emotionApi = null;
-            return;
-        }
-        Log.d(
-                TAG,
-                "createRetrofitInstance" +
-                        "attempt with IP " + ipAddress
-        );
+    private void createRetrofitInstance() {
         Retrofit retrofit;
-        String baseUrl = "http://" + ipAddress + ":8000/";
         retrofit   = new Retrofit.Builder()
-                .baseUrl(baseUrl)
+                .baseUrl(Constants.Urls.BASE_URL_RETROFIT)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         emotionApi = retrofit.create(EmotionApi.class);
         Log.d(
                 TAG,
                 "createRetrofitInstance" +
-                        "created with IP " + ipAddress
+                        "created with URL " + Constants.Urls.BASE_URL_RETROFIT
         );
     }
 
@@ -260,7 +139,6 @@ public class AnalyzePhotoViewModel extends AndroidViewModel {
                     if (predictionResponse != null) {
                         // Установка предсказанной эмоции в LiveData
                         predictedEmotion.setValue(predictionResponse.getPredictedEmotion());
-                        isIpAddressInputVisible.setValue(false);
                         Log.d(
                                 TAG,
                                 "predictEmotion: " +
@@ -281,7 +159,6 @@ public class AnalyzePhotoViewModel extends AndroidViewModel {
                                     "Server error: " + response.code() + " " + response.message()
                     );
                     errorMessage.setValue("Server error: " + response.code() + " " + response.message());
-                    isIpAddressInputVisible.setValue(true);
                 }
             }
 
@@ -320,7 +197,6 @@ public class AnalyzePhotoViewModel extends AndroidViewModel {
                 // Установка сообщения об ошибке в LiveData
                 errorMessage.setValue(message);
                 // Показ поля ввода IP адреса при ошибке
-                isIpAddressInputVisible.setValue(true);
             }
         });
     }
@@ -328,9 +204,9 @@ public class AnalyzePhotoViewModel extends AndroidViewModel {
     /**
      * Сохраняет предсказание эмоции в базу данных.
      *
-     * @param h     Значение H (Hue) цветовой модели HSL.
-     * @param s     Значение S (Saturation) цветовой модели HSL.
-     * @param l     Значение L (Lightness) цветовой модели HSL.
+     * @param h       Значение H (Hue) цветовой модели HSL.
+     * @param s       Значение S (Saturation) цветовой модели HSL.
+     * @param l       Значение L (Lightness) цветовой модели HSL.
      * @param emotion Название эмоции.
      * @return LiveData со статусом сохранения предсказания.
      */
