@@ -14,7 +14,6 @@
     <string name="title">Заголовок:</string>
     <string name="note">Заметка:</string>
     <string name="correct">Скорректировать</string>
-    <string name="analyze_photo">Анализировать фото</string>
     <string name="list_of_notes">Список заметок</string>
     <string name="analysis_photo">Анализ фото</string>
     <string name="result_of_analysis_photo">Результат анализа фото:</string>
