@@ -8,14 +8,10 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -39,7 +35,6 @@ import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.fuxkinghatred.diaryofemotions.R;
 import com.fuxkinghatred.diaryofemotions.adapters.EmotionAdapter;
-import com.fuxkinghatred.diaryofemotions.callbacks.IpAddressValidationCallback;
 import com.fuxkinghatred.diaryofemotions.callbacks.PaletteCallback;
 import com.fuxkinghatred.diaryofemotions.constants.Constants;
 import com.fuxkinghatred.diaryofemotions.factories.AnalyzePhotoViewModelFactory;
@@ -48,8 +43,6 @@ import com.fuxkinghatred.diaryofemotions.models.Note;
 import com.fuxkinghatred.diaryofemotions.repositories.EmotionPredictionRepository;
 import com.fuxkinghatred.diaryofemotions.viewmodels.AnalyzePhotoViewModel;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,11 +86,6 @@ public class AnalyzePhotosActivity extends AppCompatActivity {
     private Button buttonClose;
 
     /**
-     * Кнопка "Изменить IP-адрес".
-     */
-    private Button buttonChangeIpAddress;
-
-    /**
      * Spinner для выбора эмоции.
      */
     private Spinner spinnerEmotions;
@@ -111,11 +99,6 @@ public class AnalyzePhotosActivity extends AppCompatActivity {
      * Layout для кнопки закрытия.
      */
     private LinearLayout linearLayoutClose;
-
-    /**
-     * Layout для ввода IP-адреса.
-     */
-    private LinearLayout linearLayoutIpAddress;
 
     /**
      * Layout для кнопок "Да/Нет".
@@ -168,11 +151,6 @@ public class AnalyzePhotosActivity extends AppCompatActivity {
     private TextView textViewPredictedEmotion;
 
     /**
-     * EditText для ввода IP-адреса.
-     */
-    private EditText editTextIpAddress;
-
-    /**
      * ViewModel для управления данными.
      */
     private AnalyzePhotoViewModel analyzePhotoViewModel;
@@ -217,8 +195,7 @@ public class AnalyzePhotosActivity extends AppCompatActivity {
         // Скрываем ScrollView и показываем ProgressBar, пока предсказывается
         scrollViewAnalyzePhoto.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
-        // Скрываем Layout для ввода IP-адреса и исправления эмоций
-        linearLayoutIpAddress.setVisibility(View.GONE);
+        // Скрываем Layout исправления эмоций
         linearLayoutCorrectEmotionalState.setVisibility(View.GONE);
         linearLayoutRight.setVisibility(View.GONE);
         // Скрываем кнопку закрытия
@@ -245,28 +222,6 @@ public class AnalyzePhotosActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        buttonChangeIpAddress.setOnClickListener(view -> {
-            String ipAddress = editTextIpAddress.getText().toString().trim();
-
-            // Проверяем валидность IP-адреса
-            isValidIpAddress(ipAddress, isValid -> {
-                if (isValid) {
-                    // Меняем IP-адрес и запускаем предсказание эмоции
-                    analyzePhotoViewModel.changeIpAddress(ipAddress);
-                    analyzePhotoViewModel.predictEmotion((int) hsl[0], (int) hsl[1], (int) hsl[2]);
-                } else {
-                    // Уведомляем пользователя об ошибке
-                    Log.e(
-                            TAG,
-                            "setListeners: " +
-                                    R.string.invalid_ip_address
-                    );
-                    Toast.makeText(this,
-                            R.string.invalid_ip_address,
-                            Toast.LENGTH_SHORT).show();
-                }
-            });
-        });
         buttonYes.setOnClickListener(view -> yesButtonClick());
         buttonNo.setOnClickListener(view -> noButtonClick());
         buttonClose.setOnClickListener(view -> finish());
@@ -314,6 +269,10 @@ public class AnalyzePhotosActivity extends AppCompatActivity {
                 String predictedEmotionText = getString(R.string.predicted_emotion) + " " + predictedEmotion;
                 textViewPredictedEmotion.setText(predictedEmotionText);
                 emotionPredicted = predictedEmotion;
+                // Пока не установим предсказанную эмоцию ничего не показываем
+                progressBar.setVisibility(View.GONE);
+                scrollViewAnalyzePhoto.setVisibility(View.VISIBLE);
+                linearLayoutRight.setVisibility(View.VISIBLE);
             }
         });
         // Наблюдатель для сообщений об ошибках
@@ -332,16 +291,6 @@ public class AnalyzePhotosActivity extends AppCompatActivity {
             Toast.makeText(this,
                     errorMessage,
                     Toast.LENGTH_SHORT).show();
-        });
-        // Наблюдатель для видимости Layout ввода IP-адреса
-        analyzePhotoViewModel.getIpAddressInputVisible().observe(this, isVisible -> {
-            Log.d(
-                    TAG,
-                    "setObservers: " +
-                            "analyzePhotoViewModel.getIpAddressInputVisible().observe is set"
-            );
-            linearLayoutIpAddress.setVisibility(isVisible ? View.VISIBLE : View.GONE);
-            linearLayoutRight.setVisibility(isVisible ? View.GONE : View.VISIBLE);
         });
     }
 
@@ -372,37 +321,6 @@ public class AnalyzePhotosActivity extends AppCompatActivity {
             default:
                 return null;
         }
-    }
-
-    /**
-     * Проверяет валидность IP-адреса.
-     */
-    public static void isValidIpAddress(String ipAddress, final IpAddressValidationCallback callback) {
-        if (TextUtils.isEmpty(ipAddress)) {
-            // Если IP-адрес пустой, возвращаем false
-            callback.onIpAddressValidationReady(false);
-            return;
-        }
-
-        // Создаем и запускаем новый поток
-        new Thread(() -> {
-            boolean isValid;
-            try {
-                // Выполняем сетевую операцию
-                InetAddress.getByName(ipAddress);
-                isValid = true;
-            } catch (UnknownHostException e) {
-                // Если произошла ошибка, IP-адрес невалиден
-                isValid = false;
-            }
-
-            // Возвращаемся в основной поток для обновления UI
-            boolean finalIsValid = isValid;
-            new Handler(Looper.getMainLooper()).post(() -> {
-                // Вызываем коллбек с результатом
-                callback.onIpAddressValidationReady(finalIsValid);
-            });
-        }).start();
     }
 
     /**
@@ -536,7 +454,7 @@ public class AnalyzePhotosActivity extends AppCompatActivity {
     private void noButtonClick() {
         linearLayoutClose.setVisibility(View.GONE);
         linearLayoutRight.setVisibility(View.GONE);
-        // Показываем  LinearLayout после раздутия
+        // Показываем LinearLayout после раздутия
         linearLayoutCorrectEmotionalState.setVisibility(View.VISIBLE);
     }
 
@@ -676,8 +594,6 @@ public class AnalyzePhotosActivity extends AppCompatActivity {
                                             R.string.palette_is_null,
                                             Toast.LENGTH_LONG).show();
                                 }
-                                progressBar.setVisibility(View.GONE);
-                                scrollViewAnalyzePhoto.setVisibility(View.VISIBLE);
                             });
                         }
 
@@ -696,8 +612,6 @@ public class AnalyzePhotosActivity extends AppCompatActivity {
                             Toast.makeText(AnalyzePhotosActivity.this,
                                     R.string.error_loading_image,
                                     Toast.LENGTH_SHORT).show();
-                            progressBar.setVisibility(View.GONE);
-                            scrollViewAnalyzePhoto.setVisibility(View.VISIBLE);
                         }
                     });
         } else {
@@ -722,11 +636,9 @@ public class AnalyzePhotosActivity extends AppCompatActivity {
         buttonCorrect                     = findViewById(R.id.buttonCorrect);
         buttonYes                         = findViewById(R.id.buttonYes);
         buttonNo                          = findViewById(R.id.buttonNo);
-        buttonChangeIpAddress             = findViewById(R.id.buttonChangeIpAddress);
         buttonClose                       = findViewById(R.id.buttonClose);
         linearLayoutCorrectEmotionalState = findViewById(R.id.linearLayoutCorrectEmotionalState);
         linearLayoutClose                 = findViewById(R.id.linearLayoutClose);
-        linearLayoutIpAddress             = findViewById(R.id.linearLayoutIpAddress);
         linearLayoutRight                 = findViewById(R.id.linearLayoutRight);
         spinnerEmotions                   = findViewById(R.id.spinnerEmotions);
         textViewPredictedEmotion          = findViewById(R.id.textViewPredictedEmotion);
@@ -738,7 +650,6 @@ public class AnalyzePhotosActivity extends AppCompatActivity {
         imageViewLightMuted               = findViewById(R.id.imageViewLightMuted);
         imageViewDominantColor            = findViewById(R.id.imageViewDominantColor);
         imageViewAnalyze                  = findViewById(R.id.imageViewAnalyze);
-        editTextIpAddress                 = findViewById(R.id.editTextIpAddress);
     }
 
     /**
