@@ -1,3 +1,4 @@
+
 package com.fuxkinghatred.diaryofemotions.adapters;
 
 import android.view.LayoutInflater;
@@ -23,11 +24,11 @@ public class MyNotesAdapter extends RecyclerView.Adapter<MyNotesAdapter.NoteView
     /**
      * Список заметок для отображения.
      */
-    private final List<Note>            notes;
+    private final List<Note> notes;
     /**
      * Слушатель нажатий на элемент списка.
      */
-    private final OnItemClickListener   onItemClick;
+    private final OnItemClickListener onItemClick;
     /**
      * Слушатель удаления заметки.
      */
@@ -112,13 +113,14 @@ public class MyNotesAdapter extends RecyclerView.Adapter<MyNotesAdapter.NoteView
         // Проверка позиции и наличия слушателя удаления
         if (position < notes.size() && position >= 0 && onNoteDeletedListener != null) {
             Note noteToRemove = notes.get(position);
-            // Удаление заметки из списка
-            notes.remove(position);
-            // Уведомление RecyclerView об удалении элемента
-            notifyItemRemoved(position);
             // Уведомление слушателя об удалении заметки
             onNoteDeletedListener.onNoteDeleted(position, noteToRemove);
         }
+    }
+
+    public void onDeletionFinished(int position) {
+        notes.remove(position);
+        notifyItemRemoved(position);
     }
 
     /**
