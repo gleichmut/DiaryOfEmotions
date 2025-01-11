@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.fuxkinghatred.diaryofemotions.constants.Constants;
 import com.fuxkinghatred.diaryofemotions.models.Note;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,16 +27,16 @@ public class NoteRepository {
     /**
      * Тег для логирования.
      */
-    private static final String            TAG               = Constants.Debug.TAG_NOTE_REPOSITORY;
+    private static final String TAG = Constants.Debug.TAG_NOTE_REPOSITORY;
     /**
      * Ссылка на таблицу заметок в Firebase Realtime Database.
      */
-    private final        DatabaseReference databaseReference = FirebaseDatabase.getInstance()
+    private final DatabaseReference databaseReference = FirebaseDatabase.getInstance()
             .getReference(Constants.DatabaseReferences.TABLE_NOTES);
     /**
      * ID текущего пользователя.
      */
-    private final        String            currentUserId;
+    private final String currentUserId;
 
     /**
      * Конструктор репозитория.
@@ -127,7 +128,6 @@ public class NoteRepository {
                         TAG,
                         "getAllNotesForCurrentUser: " +
                                 "Ошибка получения заметок" + databaseError.getMessage()
-
                 );
             }
         };
@@ -141,28 +141,14 @@ public class NoteRepository {
      * Удаляет заметку из Firebase Realtime Database.
      *
      * @param noteId ID заметки для удаления.
+     * @return Task<Void> для отслеживания статуса удаления
      */
-    public void deleteNoteFromDatabase(String noteId) {
+    public Task<Void> deleteNoteFromDatabase(String noteId) {
         Log.d(
                 TAG,
                 "deleteNoteFromDatabase: " +
                         "query " + databaseReference.child(noteId)
-
         );
-        // Удаление заметки по ID
-        databaseReference.child(noteId).removeValue()
-                .addOnSuccessListener(success ->
-                        Log.d(
-                                TAG,
-                                "deleteNoteFromDatabase: " +
-                                        "Note " + noteId + " deleted successfully"
-
-                        ))
-                // Логирование ошибки при неудачном удалении
-                .addOnFailureListener(fail -> Log.e(
-                        TAG,
-                        "deleteNoteFromDatabase: " +
-                                "Ошибка удаления заметки: " + fail
-                ));
+        return databaseReference.child(noteId).removeValue();
     }
 }
