@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -60,6 +62,11 @@ public class MyNotesActivity extends AppCompatActivity implements MyNotesAdapter
     private MyNotesAdapter myNotesAdapter;
 
     /**
+     * Индикатор загрузки.
+     */
+    private ProgressBar progressBar;
+
+    /**
      * Кнопка для выхода из аккаунта.
      */
     private ImageButton imageButtonLogoff;
@@ -78,6 +85,11 @@ public class MyNotesActivity extends AppCompatActivity implements MyNotesAdapter
      * Время начала загрузки данных.
      */
     private long startTime;
+
+    /**
+     * Удаляемая позиция заметки.
+     */
+    private int pendingRemovalPosition = -1;
 
     /**
      * Метод onCreate вызывается при создании Activity.
@@ -109,6 +121,7 @@ public class MyNotesActivity extends AppCompatActivity implements MyNotesAdapter
 
         // Инициализация view элементов
         initViews();
+        progressBar.setVisibility(View.VISIBLE);
         // Установка ViewModelProviders
         setViewModelProviders();
         // Установка наблюдателей
@@ -176,6 +189,7 @@ public class MyNotesActivity extends AppCompatActivity implements MyNotesAdapter
                 ItemTouchHelper itemTouchHelper = new ItemTouchHelper(
                         new SwipeToDeleteCallback(myNotesAdapter));
                 itemTouchHelper.attachToRecyclerView(recyclerViewMyNotes);
+                progressBar.setVisibility(View.GONE);
             }
         });
     }
@@ -211,7 +225,27 @@ public class MyNotesActivity extends AppCompatActivity implements MyNotesAdapter
      */
     @Override
     public void onNoteDeleted(int position, Note note) {
-        repository.deleteNoteFromDatabase(note.getNoteId());
+        if (pendingRemovalPosition != -1) {
+            // Предотвращаем множественные вызовы
+            return;
+        }
+        pendingRemovalPosition = position;
+        progressBar.setVisibility(View.VISIBLE);
+
+        repository.deleteNoteFromDatabase(note.getNoteId()).addOnCompleteListener(task -> {
+            // После того как удаление завершилось, скрываем ProgressBar и удаляем view
+            if (task.isSuccessful()) {
+                if (myNotesAdapter != null) {
+                    myNotesAdapter.onDeletionFinished(position);
+                    progressBar.setVisibility(View.GONE);
+                }
+            } else {
+                if (myNotesAdapter != null) {
+                    progressBar.setVisibility(View.GONE);
+                }
+            }
+            pendingRemovalPosition = -1;
+        });
     }
 
     /**
@@ -233,6 +267,7 @@ public class MyNotesActivity extends AppCompatActivity implements MyNotesAdapter
         imageButtonLogoff   = findViewById(R.id.imageButtonLogoff);
         recyclerViewMyNotes = findViewById(R.id.recyclerViewMyNotes);
         buttonAddNote       = findViewById(R.id.buttonAddNote);
+        progressBar         = findViewById(R.id.progressBar);
     }
 
     /**
