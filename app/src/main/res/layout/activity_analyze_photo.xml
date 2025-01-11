@@ -178,45 +178,6 @@
                 android:layout_height="20dp" />
 
             <LinearLayout
-                android:id="@+id/linearLayoutIpAddress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="50dp"
-                android:orientation="vertical">
-
-                <TextView
-                    style="@style/TextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/need_to_change_ip_address" />
-
-                <EditText
-                    android:id="@+id/editTextIpAddress"
-                    style="@style/EditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:autofillHints=""
-                    android:hint="@string/ip_address"
-                    android:inputType="text"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp"
-                    android:scrollbars="vertical"
-                    android:textColorHighlight="@color/sea_foam_pink" />
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
-
-                <Button
-                    android:id="@+id/buttonChangeIpAddress"
-                    style="@style/Button"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:text="@string/change_ip_address" />
-            </LinearLayout>
-
-            <LinearLayout
                 android:id="@+id/linearLayoutRight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
