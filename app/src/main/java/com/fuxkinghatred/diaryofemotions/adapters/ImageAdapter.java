@@ -34,27 +34,31 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
     /**
      * Тэг для логирования.
      */
-    private static final String              TAG = Constants.Debug.TAG_IMAGE_ADAPTER;
+    private static final String TAG = Constants.Debug.TAG_IMAGE_ADAPTER;
     /**
      * Контекст приложения.
      */
-    private final        Context             context;
+    private final Context context;
     /**
      * Список URI изображений для отображения.
      */
-    private final        List<Uri>           imageUris;
+    private final List<Uri> imageUris;
     /**
      * Слушатель нажатий на элементы списка.
      */
-    private final        OnItemClickListener listener;
+    private final OnItemClickListener listener;
     /**
      * Массив для хранения состояния загрузки изображений.
      */
-    private final        SparseBooleanArray  isImageLoaded;
+    private final SparseBooleanArray isImageLoaded;
+    /**
+     * Массив для хранения состояния отображения изображения заглушки.
+     */
+    private final SparseBooleanArray isImageNotFound;
     /**
      * Текст с информацией об начале анализа фото.
      */
-    private final        TextView            textViewAnalyze;
+    private final TextView textViewAnalyze;
 
     /**
      * Конструктор адаптера.
@@ -71,6 +75,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
         this.imageUris       = imageUris;
         this.listener        = listener;
         this.isImageLoaded   = new SparseBooleanArray();
+        this.isImageNotFound = new SparseBooleanArray();
         this.textViewAnalyze = textViewAnalyze;
     }
 
@@ -119,6 +124,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
                                 R.string.error_load_image,
                                 Toast.LENGTH_SHORT).show();
                         isImageLoaded.put(holder.getAdapterPosition(), false);
+                        isImageNotFound.put(holder.getAdapterPosition(), true);
                         if (textViewAnalyze != null) updateTextViewVisibility();
                         return false;
                     }
@@ -130,22 +136,30 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
                                                    @NonNull DataSource dataSource,
                                                    boolean isFirstResource) {
                         isImageLoaded.put(holder.getAdapterPosition(), true);
+                        isImageNotFound.put(holder.getAdapterPosition(), false);
                         if (textViewAnalyze != null) updateTextViewVisibility();
                         return false;
                     }
                 })
                 .into(holder.imageView);
         holder.itemView.setOnClickListener(v -> {
+            //Если изображение загружено, то даем клик
             if (isImageLoaded.get(holder.getAdapterPosition())) {
                 listener.onItemClick(uri);
             }
         });
 
         holder.itemView.setOnLongClickListener(v -> {
-            if (isImageLoaded.get(holder.getAdapterPosition())) {
+            if (isImageNotFound.get(holder.getAdapterPosition())) {
+                //Если изображение НЕ загружено, то даем долгий клик
                 listener.onItemLongClick(uri, holder.getAdapterPosition());
+                return true;
+            } else if (isImageLoaded.get(holder.getAdapterPosition())) {
+                //Если изображение загружено, то даем долгий клик
+                listener.onItemLongClick(uri, holder.getAdapterPosition());
+                return true;
             }
-            return true;
+            return false;
         });
         if (textViewAnalyze != null) updateTextViewVisibility();
     }
