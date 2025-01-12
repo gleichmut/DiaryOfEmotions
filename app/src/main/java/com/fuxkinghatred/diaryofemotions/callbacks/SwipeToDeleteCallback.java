@@ -1,18 +1,28 @@
 package com.fuxkinghatred.diaryofemotions.callbacks;
 
 import android.graphics.Canvas;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fuxkinghatred.diaryofemotions.adapters.MyNotesAdapter;
+import com.fuxkinghatred.diaryofemotions.constants.Constants;
+import com.fuxkinghatred.diaryofemotions.models.Note;
 
 /**
- * Обратный вызов для удаления элемента свайпом.
+ * • Обратный вызов для удаления элемента свайпом.
  */
 public class SwipeToDeleteCallback extends ItemTouchHelper.SimpleCallback {
+    /**
+     * Тег для логирования.
+     */
 
+    private static final String TAG = Constants.Debug.TAG_SWIPE_TO_DELETE_CALLBACK;
+    /**
+     * Адаптер для RecyclerView.
+     */
     private final MyNotesAdapter adapter;
 
     /**
@@ -49,8 +59,19 @@ public class SwipeToDeleteCallback extends ItemTouchHelper.SimpleCallback {
      */
     @Override
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-        int position = viewHolder.getAdapterPosition(); // Получаем позицию элемента
-        adapter.removeAt(position); // Удаляем элемент из адаптера
+        int position = viewHolder.getAdapterPosition();
+        Log.d(TAG, "onSwiped: position = " + position);
+        if (position != RecyclerView.NO_POSITION) {
+            Note noteToDelete = adapter.getNotes().get(position);
+            if (noteToDelete == null) {
+                Log.e(TAG, "onSwiped: noteToDelete is null at position " + position);
+                return;
+            }
+            Log.d(TAG, "onSwiped: noteToDelete id = " + noteToDelete.getNoteId());
+            adapter.getOnNoteDeletedListener().onNoteDeleted(noteToDelete.getNoteId(), noteToDelete);
+        } else {
+            Log.e(TAG, "onSwiped: position is RecyclerView.NO_POSITION");
+        }
     }
 
     /**
