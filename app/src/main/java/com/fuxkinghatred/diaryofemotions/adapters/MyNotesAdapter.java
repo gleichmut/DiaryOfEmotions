@@ -1,6 +1,7 @@
 
 package com.fuxkinghatred.diaryofemotions.adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,7 @@ public class MyNotesAdapter extends RecyclerView.Adapter<MyNotesAdapter.NoteView
     /**
      * Список заметок для отображения.
      */
-    private final List<Note> notes;
+    private List<Note> notes;
     /**
      * Слушатель нажатий на элемент списка.
      */
@@ -33,6 +34,24 @@ public class MyNotesAdapter extends RecyclerView.Adapter<MyNotesAdapter.NoteView
      * Слушатель удаления заметки.
      */
     private final OnNoteDeletedListener onNoteDeletedListener;
+
+    /**
+     * Получение списка заметок.
+     *
+     * @return список заметок
+     */
+    public List<Note> getNotes() {
+        return notes;
+    }
+
+    /**
+     * Получение слушателя удаления заметки.
+     *
+     * @return слушатель удаления заметки
+     */
+    public OnNoteDeletedListener getOnNoteDeletedListener() {
+        return onNoteDeletedListener;
+    }
 
     /**
      * Конструктор адаптера.
@@ -47,6 +66,16 @@ public class MyNotesAdapter extends RecyclerView.Adapter<MyNotesAdapter.NoteView
         this.notes                 = notes;
         this.onItemClick           = onItemClick;
         this.onNoteDeletedListener = onNoteDeletedListener;
+    }
+
+    /**
+     * Обновление списка заметок.
+     *
+     * @param newNotes обновленный список заметок
+     */
+    public void updateData(List<Note> newNotes) {
+        this.notes = newNotes;
+        notifyDataSetChanged();
     }
 
     /**
@@ -88,9 +117,18 @@ public class MyNotesAdapter extends RecyclerView.Adapter<MyNotesAdapter.NoteView
     @Override
     public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
         Note note = notes.get(position);
-        holder.dateTimeTextView.setText(formatTimestampToString(note.timestamp));
-        holder.titleTextView.setText(note.title);
-        holder.textTextView.setText(note.text);
+        holder.textViewDatetimeNote.setText(formatTimestampToString(note.timestamp));
+        holder.textViewTitleNote.setText(note.title);
+        holder.textViewTextNote.setText(note.text);
+        if (note.getPhotos() != null) {
+            Log.d("TAG", "onBindViewHolder: photos: " + note.getPhotos().size());
+            String countImage = "Прикрепленных фото: " + note.getPhotos().size();
+            holder.textViewImageCount.setText(countImage);
+        } else {
+            Log.d("TAG", "onBindViewHolder: photos: null");
+            String countImage = "Нет прикрепленных фото";
+            holder.textViewImageCount.setText(countImage);
+        }
         holder.itemView.setOnClickListener(v -> onItemClick.onItemClick(note));
     }
 
@@ -105,40 +143,25 @@ public class MyNotesAdapter extends RecyclerView.Adapter<MyNotesAdapter.NoteView
     }
 
     /**
-     * Удаляет заметку из списка и уведомляет RecyclerView об изменениях.
-     *
-     * @param position Позиция заметки в списке.
-     */
-    public void removeAt(int position) {
-        // Проверка позиции и наличия слушателя удаления
-        if (position < notes.size() && position >= 0 && onNoteDeletedListener != null) {
-            Note noteToRemove = notes.get(position);
-            // Уведомление слушателя об удалении заметки
-            onNoteDeletedListener.onNoteDeleted(position, noteToRemove);
-        }
-    }
-
-    public void onDeletionFinished(int position) {
-        notes.remove(position);
-        notifyItemRemoved(position);
-    }
-
-    /**
      * ViewHolder для элемента списка заметок.
      */
     public static class NoteViewHolder extends RecyclerView.ViewHolder {
         /**
          * TextView для отображения даты и времени заметки.
          */
-        final TextView dateTimeTextView;
+        final TextView textViewDatetimeNote;
         /**
          * TextView для отображения заголовка заметки.
          */
-        final TextView titleTextView;
+        final TextView textViewTitleNote;
         /**
          * TextView для отображения текста заметки.
          */
-        final TextView textTextView;
+        final TextView textViewTextNote;
+        /**
+         * TextView для отображения количества изображений в заметке.
+         */
+        final TextView textViewImageCount;
 
         /**
          * Конструктор ViewHolder.
@@ -147,9 +170,10 @@ public class MyNotesAdapter extends RecyclerView.Adapter<MyNotesAdapter.NoteView
          */
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
-            dateTimeTextView = itemView.findViewById(R.id.datetimeNoteTextView);
-            titleTextView    = itemView.findViewById(R.id.titleNoteTextView);
-            textTextView     = itemView.findViewById(R.id.textNoteTextView);
+            textViewDatetimeNote = itemView.findViewById(R.id.textViewDatetimeNote);
+            textViewTitleNote    = itemView.findViewById(R.id.textViewTitleNote);
+            textViewTextNote     = itemView.findViewById(R.id.textViewTextNote);
+            textViewImageCount   = itemView.findViewById(R.id.textViewImageCount);
         }
     }
 
@@ -172,9 +196,10 @@ public class MyNotesAdapter extends RecyclerView.Adapter<MyNotesAdapter.NoteView
         /**
          * Метод вызывается при удалении заметки.
          *
-         * @param position Позиция удаленной заметки.
-         * @param note     Удаленная заметка.
+         * @param noteId ID удаленной заметки
+         * @param note   Удаленная заметка.
          */
-        void onNoteDeleted(int position, Note note);
+        void onNoteDeleted(String noteId, Note note);
     }
 }
+
