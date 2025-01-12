@@ -4,7 +4,6 @@ package com.fuxkinghatred.diaryofemotions.constants;
  * Класс для хранения различных констант приложения.
  */
 public class Constants {
-
     /**
      * Внутренний класс для хранения тегов для логирования.
      */
@@ -68,6 +67,10 @@ public class Constants {
          * Тег для логирования в репозитории предсказания эмоций.
          */
         public static final String TAG_EMOTION_PREDICTION_REPOSITORY = "EmotionPredictionRepository";
+        /**
+         * Тег для логирования в колбеке удаления заметки.
+         */
+        public static final String TAG_SWIPE_TO_DELETE_CALLBACK = "SwipeToDeleteCallback";
     }
 
     /**
@@ -128,7 +131,13 @@ public class Constants {
         public static final String TABLE_NOTES = "notes";
     }
 
+    /**
+     * Внутренний класс для хранения URL.
+     */
     public static class Urls {
+        /**
+         * Ссылка на сервер.
+         */
         public static final String BASE_URL_RETROFIT = "https://fuxkinghatred.pythonanywhere.com";
     }
 }
