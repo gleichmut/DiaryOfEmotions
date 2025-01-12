@@ -37,4 +37,12 @@ public class NoteViewModel extends ViewModel {
     public LiveData<List<Note>> getAllNotesForCurrentUser() {
         return repository.getAllNotesForCurrentUser();
     }
+
+    /**
+     * Удаление заметки.
+     * @param noteId ID заметки
+     */
+    public void deleteNote(String noteId) {
+        repository.deleteNoteFromDatabase(noteId);
+    }
 }
