@@ -13,7 +13,6 @@ import java.util.UUID;
  * Класс, представляющий заметку.
  */
 public class Note implements Parcelable {
-
     /**
      * Уникальный идентификатор заметки.
      */
@@ -62,6 +61,15 @@ public class Note implements Parcelable {
      * Пустой конструктор, необходимый для работы с Parcelable.
      */
     public Note() {
+    }
+
+    /**
+     * Получает список фото в заметке.
+     *
+     * @return список фото в заметке
+     */
+    public List<Photo> getPhotos() {
+        return photos;
     }
 
     /**
