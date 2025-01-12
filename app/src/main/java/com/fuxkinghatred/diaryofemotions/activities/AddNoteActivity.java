@@ -1,3 +1,4 @@
+
 package com.fuxkinghatred.diaryofemotions.activities;
 
 import android.Manifest;
@@ -15,6 +16,8 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.MediaStore;
 import android.speech.RecognizerIntent;
 import android.text.TextUtils;
@@ -194,6 +197,11 @@ public class AddNoteActivity extends AppCompatActivity implements ImageAdapter.O
     private Note loadedNote;
 
     /**
+     * Handler для периодического обновления времени
+     */
+    private final Handler handler = new Handler(Looper.getMainLooper());
+
+    /**
      * Метод onCreate вызывается при создании Activity.
      *
      * @param savedInstanceState сохраненное состояние Activity
@@ -243,10 +251,26 @@ public class AddNoteActivity extends AppCompatActivity implements ImageAdapter.O
             // Устанавливаем название активности
             textViewActionNote.setText("Добавление заметки");
         }
-        // Установка даты
+        // Установка начальных даты и времени
+        setInitialDateTime();
+    }
+
+    // Установка начальных даты и времени
+    private void setInitialDateTime() {
+        Calendar now = Calendar.getInstance();
+        dateTimePickerViewModel.setDate(now);
+        dateTimePickerViewModel.setTime(now);
         setDate();
-        // Установка времени
         setTime();
+    }
+
+    /***
+     * Удаление всех отложенных задач при уничтожении Activity.
+     */
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacksAndMessages(null);
     }
 
     /**
@@ -414,7 +438,7 @@ public class AddNoteActivity extends AppCompatActivity implements ImageAdapter.O
         ContentResolver resolver = getContentResolver();
         try {
             imageUri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-            // Если изображение не выбрано 
+            // Если изображение не выбрано
             if (imageUri == null) {
                 Log.e(
                         TAG,
@@ -885,10 +909,25 @@ public class AddNoteActivity extends AppCompatActivity implements ImageAdapter.O
             if (calendar != null) {
                 // Отображаем время
                 textViewSelectedTime.setText(formatTime(calendar));
-                // Обновляем время
+                // Обновляем время и запускаем периодическую проверку
                 checkAndUpdateDatetime();
+                startRealTimeValidation();
             }
         });
+    }
+
+    /**
+     * Запускает проверку времени раз в секунду.
+     */
+    private void startRealTimeValidation() {
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                checkAndUpdateDatetime();
+                // Вызов handler через каждую секунду
+                handler.postDelayed(this, 1000);
+            }
+        }, 1000); // Запуск через 1 секунду
     }
 
     /**
