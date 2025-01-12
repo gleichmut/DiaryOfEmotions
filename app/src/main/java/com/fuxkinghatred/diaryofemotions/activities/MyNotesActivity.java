@@ -10,6 +10,8 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -31,6 +33,8 @@ import com.fuxkinghatred.diaryofemotions.viewmodels.MyNotesViewModel;
 import com.fuxkinghatred.diaryofemotions.viewmodels.NoteViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.List;
+
 /**
  * Активность списка заметок пользователя.
  */
@@ -40,11 +44,6 @@ public class MyNotesActivity extends AppCompatActivity implements MyNotesAdapter
      * Тег для логирования.
      */
     private static final String TAG = Constants.Debug.TAG_MY_NOTES_ACTIVITY;
-
-    /**
-     * Репозиторий для работы с заметками.
-     */
-    private NoteRepository repository;
 
     /**
      * ViewModel для работы с заметкой.
@@ -87,9 +86,9 @@ public class MyNotesActivity extends AppCompatActivity implements MyNotesAdapter
     private long startTime;
 
     /**
-     * Удаляемая позиция заметки.
+     * Лаунчер для добавления заметки.
      */
-    private int pendingRemovalPosition = -1;
+    private ActivityResultLauncher<Intent> addNoteLauncher;
 
     /**
      * Метод onCreate вызывается при создании Activity.
@@ -128,6 +127,22 @@ public class MyNotesActivity extends AppCompatActivity implements MyNotesAdapter
         setObservers();
         // Установка слушателей
         setListeners();
+        // Установка лаунчеров
+        setActivityLaunchers();
+    }
+
+    /**
+     * Устанавливает ActivityResultLauncher для добавления заметки.
+     */
+    private void setActivityLaunchers() {
+        addNoteLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK) {
+                        reloadNotes();
+                    }
+                }
+        );
     }
 
     /**
@@ -142,7 +157,7 @@ public class MyNotesActivity extends AppCompatActivity implements MyNotesAdapter
                             "getExtraIds: " + getExtraIds()
             );
             Intent intent = AddNoteActivity.newIntent(MyNotesActivity.this, getExtraIds());
-            startActivity(intent);
+            addNoteLauncher.launch(intent);
         });
 
         // Слушатель для кнопки выхода из аккаунта
@@ -163,35 +178,47 @@ public class MyNotesActivity extends AppCompatActivity implements MyNotesAdapter
         // Запись времени начала загрузки
         startTime = System.currentTimeMillis();
         // Наблюдение за изменениями списка заметок текущего пользователя
-        noteViewModel.getAllNotesForCurrentUser().observeForever(notes -> {
+        noteViewModel.getAllNotesForCurrentUser().observe(this, notes -> {
             Log.d(
                     TAG,
                     "setObservers: " +
                             "noteViewModel.getAllNotesForCurrentUser().observe is set"
             );
-            if (notes != null) {
-                // Запись времени конца загрузки
-                long endTime = System.currentTimeMillis();
-                // Вычисление времени загрузки
-                long loadingTime = endTime - startTime;
-                Log.d(
-                        TAG,
-                        "setObservers: " +
-                                "Notes loaded in " + loadingTime + " milliseconds"
-                );
-                // Создание адаптера для RecyclerView с полученными заметками и слушателями
+            updateRecyclerView(notes);
+        });
+    }
+
+    /**
+     * Метод для запроса LiveData списка заметок
+     */
+    public void reloadNotes() {
+        noteViewModel.getAllNotesForCurrentUser().observe(this, this::updateRecyclerView);
+    }
+
+    private void updateRecyclerView(List<Note> notes) {
+        if (notes != null) {
+            // Запись времени конца загрузки
+            long endTime = System.currentTimeMillis();
+            // Вычисление времени загрузки
+            long loadingTime = endTime - startTime;
+            Log.d(
+                    TAG,
+                    "setObservers: " +
+                            "Notes loaded in " + loadingTime + " milliseconds"
+            );
+
+            if (myNotesAdapter == null) {
                 myNotesAdapter = new MyNotesAdapter(notes, this, this);
-                // Установка LayoutManager для RecyclerView
                 recyclerViewMyNotes.setLayoutManager(new LinearLayoutManager(this));
-                // Установка адаптера для RecyclerView
                 recyclerViewMyNotes.setAdapter(myNotesAdapter);
-                // Создание и прикрепление ItemTouchHelper для обработки свайпов
                 ItemTouchHelper itemTouchHelper = new ItemTouchHelper(
                         new SwipeToDeleteCallback(myNotesAdapter));
                 itemTouchHelper.attachToRecyclerView(recyclerViewMyNotes);
-                progressBar.setVisibility(View.GONE);
+            } else {
+                myNotesAdapter.updateData(notes);
             }
-        });
+            progressBar.setVisibility(View.GONE);
+        }
     }
 
     /**
@@ -201,7 +228,7 @@ public class MyNotesActivity extends AppCompatActivity implements MyNotesAdapter
         // Инициализация MyNotesViewModel
         myNotesViewModel = new ViewModelProvider(this).get(MyNotesViewModel.class);
         // Инициализация репозитория заметок с ID текущего пользователя
-        repository = new NoteRepository(getExtraIds());
+        NoteRepository repository = new NoteRepository(getExtraIds());
         // Создание фабрики для NoteViewModel
         NoteViewModelFactory factory = new NoteViewModelFactory(repository);
         // Инициализация NoteViewModel
@@ -220,32 +247,14 @@ public class MyNotesActivity extends AppCompatActivity implements MyNotesAdapter
     /**
      * Метод, вызываемый при удалении заметки
      *
-     * @param position Позиция удаленной заметки в списке
-     * @param note     Удаленная заметка
+     * @param noteId ID удаленной заметки
+     * @param note   Удаленная заметка
      */
     @Override
-    public void onNoteDeleted(int position, Note note) {
-        if (pendingRemovalPosition != -1) {
-            // Предотвращаем множественные вызовы
-            return;
-        }
-        pendingRemovalPosition = position;
-        progressBar.setVisibility(View.VISIBLE);
-
-        repository.deleteNoteFromDatabase(note.getNoteId()).addOnCompleteListener(task -> {
-            // После того как удаление завершилось, скрываем ProgressBar и удаляем view
-            if (task.isSuccessful()) {
-                if (myNotesAdapter != null) {
-                    myNotesAdapter.onDeletionFinished(position);
-                    progressBar.setVisibility(View.GONE);
-                }
-            } else {
-                if (myNotesAdapter != null) {
-                    progressBar.setVisibility(View.GONE);
-                }
-            }
-            pendingRemovalPosition = -1;
-        });
+    public void onNoteDeleted(String noteId, Note note) {
+        Log.d(TAG, "onNoteDeleted: noteId = " + noteId + ", note text = " + note.text);
+        noteViewModel.deleteNote(noteId);
+        reloadNotes();
     }
 
     /**
