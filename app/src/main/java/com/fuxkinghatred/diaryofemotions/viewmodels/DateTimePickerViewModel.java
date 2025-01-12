@@ -105,6 +105,8 @@ public class DateTimePickerViewModel extends ViewModel {
      */
     private void updateDateTimeValidation() {
         Calendar now = Calendar.getInstance();
+        now.set(Calendar.SECOND, 0);
+        now.set(Calendar.MILLISECOND, 0);
         long currentTimestamp = now.getTimeInMillis();
         long selectedTimestamp = timestamp.getValue() == null ? currentTimestamp : timestamp.getValue();
         boolean isValid = selectedTimestamp <= currentTimestamp;
