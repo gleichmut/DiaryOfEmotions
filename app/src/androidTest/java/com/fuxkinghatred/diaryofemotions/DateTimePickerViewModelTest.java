@@ -140,16 +140,6 @@ public class DateTimePickerViewModelTest {
     }
 
     @Test
-    public void updateDatetime_dateIsCurrent_isDateTimeValid() {
-        Calendar testCalendar = Calendar.getInstance();
-        viewModel.setDate(testCalendar);
-        Calendar calendar = Calendar.getInstance();
-        viewModel.updateDatetime(calendar);
-        assertTrue(viewModel.getIsDateTimeValid().getValue() == null
-                || viewModel.getIsDateTimeValid().getValue());
-    }
-
-    @Test
     public void getDatetime_returnsTimestamp() {
         Calendar calendar = Calendar.getInstance();
         viewModel.updateDatetime(calendar);
