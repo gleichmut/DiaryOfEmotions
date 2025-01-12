@@ -8,26 +8,35 @@
     android:padding="10dp">
 
     <TextView
-        android:id="@+id/datetimeNoteTextView"
+        android:id="@+id/textViewDatetimeNote"
         style="@style/TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
 
     <TextView
-        android:id="@+id/titleNoteTextView"
+        android:id="@+id/textViewTitleNote"
         style="@style/TextView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:lines="2" />
 
     <TextView
-        android:id="@+id/textNoteTextView"
+        android:id="@+id/textViewTextNote"
         style="@style/TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:lines="2"
         android:paddingStart="16dp"
         android:paddingEnd="0dp"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/textViewImageCount"
+        style="@style/TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/dark_purple_red"
         android:textSize="16sp" />
 
 </LinearLayout>
