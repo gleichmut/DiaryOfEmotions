@@ -1,12 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/scrollViewAddNoteActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
     android:layout_marginTop="25dp"
-    android:fillViewport="true"
     android:orientation="vertical"
     android:padding="20dp">
 
@@ -109,7 +107,7 @@
             android:id="@+id/editTextTitleOfNote"
             style="@style/EditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
             android:autofillHints=""
             android:hint="@string/title_of_note"
             android:inputType="textMultiLine"
@@ -164,7 +162,7 @@
             android:id="@+id/editTextTextOfNote"
             style="@style/EditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:autofillHints=""
             android:hint="@string/text_your_note_here"
             android:inputType="textMultiLine"
@@ -201,26 +199,23 @@
             android:id="@+id/recyclerViewImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxHeight="200dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="10dp" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="20dp" />
-
         <Button
             android:id="@+id/buttonSave"
             style="@style/Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
             android:text="@string/save" />
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="10dp" />
+            android:layout_height="20dp" />
     </LinearLayout>
 </ScrollView>
-
