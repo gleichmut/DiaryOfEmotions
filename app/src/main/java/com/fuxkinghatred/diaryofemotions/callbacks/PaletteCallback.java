@@ -10,7 +10,7 @@ public interface PaletteCallback {
     /**
      * Вызывается, когда палитра готова.
      *
-     * @param palette готовая палитра цветов
+     * @param palette готовая палитра цветов.
      */
     void onPaletteReady(Palette palette);
 }

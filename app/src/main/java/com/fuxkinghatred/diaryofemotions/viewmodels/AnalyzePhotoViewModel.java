@@ -26,23 +26,23 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * ViewModel для экрана анализа фотографии.
+ * ViewModel для AnalyzePhotoActivity.
  */
 public class AnalyzePhotoViewModel extends AndroidViewModel {
     /**
-     * Тег для логирования.
+     * Тег логирования.
      */
     private static final String TAG = Constants.Debug.TAG_ANALYZE_PHOTO_VIEW_MODEL;
     /**
-     * Интерфейс для выполнения HTTP запросов к API.
+     * Интерфейс для взаимодействия с API предсказания эмоций.
      */
     private EmotionApi emotionApi;
     /**
-     * LiveData для хранения предсказанной эмоции.
+     * LiveData предсказанной эмоции.
      */
     private final MutableLiveData<String> predictedEmotion = new MutableLiveData<>();
     /**
-     * LiveData для хранения сообщения об ошибке.
+     * LiveData сообщения об ошибке.
      */
     private final MutableLiveData<String> errorMessage = new MutableLiveData<>();
     /**
@@ -53,8 +53,8 @@ public class AnalyzePhotoViewModel extends AndroidViewModel {
     /**
      * Конструктор ViewModel.
      *
-     * @param application Контекст приложения.
-     * @param repository  Репозиторий для работы с предсказаниями эмоций.
+     * @param application контекст приложения.
+     * @param repository  репозиторий для работы с предсказаниями эмоций.
      */
     public AnalyzePhotoViewModel(Application application, EmotionPredictionRepository repository) {
         super(application);
@@ -80,18 +80,18 @@ public class AnalyzePhotoViewModel extends AndroidViewModel {
     }
 
     /**
-     * Возвращает LiveData с предсказанной эмоцией.
+     * Возвращает LiveData предсказанной эмоцией.
      *
-     * @return LiveData с предсказанной эмоцией.
+     * @return LiveData предсказанной эмоцией.
      */
     public LiveData<String> getPredictedEmotion() {
         return predictedEmotion;
     }
 
     /**
-     * Возвращает LiveData с сообщением об ошибке.
+     * Возвращает LiveData сообщения об ошибке.
      *
-     * @return LiveData с сообщением об ошибке.
+     * @return LiveData сообщения об ошибке.
      */
     public LiveData<String> getErrorMessage() {
         return errorMessage;
@@ -100,9 +100,9 @@ public class AnalyzePhotoViewModel extends AndroidViewModel {
     /**
      * Выполняет запрос к API для предсказания эмоции.
      *
-     * @param h Значение H (Hue) цветовой модели HSL.
-     * @param s Значение S (Saturation) цветовой модели HSL.
-     * @param l Значение L (Lightness) цветовой модели HSL.
+     * @param h Hue (оттенок).
+     * @param s Saturation (насыщенность).
+     * @param l Lightness (яркость).
      */
     public void predictEmotion(int h, int s, int l) {
         if (emotionApi == null) {
@@ -196,7 +196,6 @@ public class AnalyzePhotoViewModel extends AndroidViewModel {
                 }
                 // Установка сообщения об ошибке в LiveData
                 errorMessage.setValue(message);
-                // Показ поля ввода IP адреса при ошибке
             }
         });
     }
@@ -204,11 +203,11 @@ public class AnalyzePhotoViewModel extends AndroidViewModel {
     /**
      * Сохраняет предсказание эмоции в базу данных.
      *
-     * @param h       Значение H (Hue) цветовой модели HSL.
-     * @param s       Значение S (Saturation) цветовой модели HSL.
-     * @param l       Значение L (Lightness) цветовой модели HSL.
-     * @param emotion Название эмоции.
-     * @return LiveData со статусом сохранения предсказания.
+     * @param h       Hue (оттенок).
+     * @param s       Saturation (насыщенность).
+     * @param l       Lightness (яркость).
+     * @param emotion предсказанная эмоция.
+     * @return LiveData статуса сохранения предсказания.
      */
     public LiveData<Boolean> saveEmotionPrediction(int h, int s, int l, String emotion) {
         Log.d(

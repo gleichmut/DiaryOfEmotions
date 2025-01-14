@@ -16,28 +16,28 @@ import com.fuxkinghatred.diaryofemotions.models.Emotion;
 import java.util.List;
 
 /**
- * Адаптер для отображения списка эмоций в Spinner.
+ * Адаптер эмоций.
  */
 public class EmotionAdapter extends ArrayAdapter<Emotion> {
     /**
      * Контекст приложения.
      */
-    private final Context       context;
+    private final Context context;
     /**
-     * ID ресурса layout для элемента списка.
+     * ID ресурса layout элемента списка.
      */
-    private final int           resource;
+    private final int resource;
     /**
-     * Список эмоций для отображения.
+     * Список эмоций.
      */
     private final List<Emotion> emotionsList;
 
     /**
      * Конструктор адаптера.
      *
-     * @param context      Контекст приложения.
-     * @param resource     ID ресурса layout для элемента списка.
-     * @param emotionsList Список эмоций для отображения.
+     * @param context      контекст приложения.
+     * @param resource     ID ресурса layout элемента списка.
+     * @param emotionsList список эмоций.
      */
     public EmotionAdapter(@NonNull Context context, int resource, List<Emotion> emotionsList) {
         super(context, resource, emotionsList);
@@ -47,11 +47,11 @@ public class EmotionAdapter extends ArrayAdapter<Emotion> {
     }
 
     /**
-     * Метод для получения View элемента для отображения в списке.
+     * Метод получения View элемента для отображения в списке.
      *
-     * @param position    Позиция элемента в списке.
+     * @param position    позиция элемента в списке.
      * @param convertView View для переиспользования.
-     * @param parent      Родительский ViewGroup.
+     * @param parent      родительский ViewGroup.
      * @return View элемента списка.
      */
     @NonNull
@@ -61,11 +61,11 @@ public class EmotionAdapter extends ArrayAdapter<Emotion> {
     }
 
     /**
-     * Метод для получения View элемента для отображения в выпадающем списке (Spinner).
+     * Метод получения View элемента для отображения в Spinner.
      *
-     * @param position    Позиция элемента в списке.
+     * @param position    позиция элемента в списке.
      * @param convertView View для переиспользования.
-     * @param parent      Родительский ViewGroup.
+     * @param parent      родительский ViewGroup.
      * @return View элемента выпадающего списка.
      */
     @Override
@@ -74,11 +74,11 @@ public class EmotionAdapter extends ArrayAdapter<Emotion> {
     }
 
     /**
-     * Общий метод для создания View элемента списка.
+     * Общий метод создания View элемента списка.
      *
-     * @param position    Позиция элемента в списке.
+     * @param position    позиция элемента в списке.
      * @param convertView View для переиспользования.
-     * @param parent      Родительский ViewGroup.
+     * @param parent      родительский ViewGroup.
      * @return View элемента списка.
      */
     private View createView(int position, View convertView, ViewGroup parent) {

@@ -32,56 +32,56 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * Активность заметки.
+ * Activity заметки.
  */
 public class NoteActivity extends AppCompatActivity implements ImageAdapter.OnItemClickListener {
     /**
-     * Тег для логирования.
+     * Тег логирования.
      */
     private static final String TAG = Constants.Debug.TAG_NOTE_ACTIVITY;
 
     /**
-     * TextView для отображения даты и времени заметки.
+     * TextView даты и времени заметки.
      */
     private TextView datetimeNoteTextView;
 
     /**
-     * TextView для отображения заголовка заметки.
+     * TextView заголовка заметки.
      */
     private TextView titleNoteTextView;
 
     /**
-     * TextView для отображения текста заметки.
+     * TextView текста заметки.
      */
     private TextView textViewTextNote;
 
     /**
-     * TextView для отображения подписи "Фото".
+     * TextView надписи "Фото".
      */
     private TextView textViewPhoto;
 
     /**
-     * Кнопка для закрытия заметки.
+     * Кнопка закрытия заметки.
      */
     private Button buttonClose;
 
     /**
-     * Кнопка для редактирования заметки.
+     * Кнопка редактирования заметки.
      */
     private ImageButton imageButtonEdit;
 
     /**
-     * RecyclerView для отображения фотографий заметки.
+     * RecyclerView для отображения прикрепленных фото к заметке.
      */
     private RecyclerView recyclerViewImageView;
 
     /**
-     * TextView для отображения подсказки для начала анализа.
+     * TextView подсказки для начала анализа.
      */
     private TextView textViewClickToAnalyzePhoto;
 
     /**
-     * Объект заметки, которая отображается.
+     * Отображаемая заметка.
      */
     private Note note;
 
@@ -113,12 +113,12 @@ public class NoteActivity extends AppCompatActivity implements ImageAdapter.OnIt
     }
 
     /**
-     * Устанавливает слушателей для UI элементов.
+     * Устанавливает слушателей.
      */
     private void setListeners() {
-        // Слушатель для кнопки закрытия заметки
+        // Слушатель кнопки закрытия заметки
         buttonClose.setOnClickListener(view -> finish());
-        // Слушатель для кнопки редактирования заметки
+        // Слушатель кнопки редактирования заметки
         imageButtonEdit.setOnClickListener(view -> editNoteClick());
     }
 
@@ -135,7 +135,7 @@ public class NoteActivity extends AppCompatActivity implements ImageAdapter.OnIt
      * Форматирует timestamp в строку даты и времени.
      *
      * @param timestamp timestamp в миллисекундах
-     * @return Отформатированная строка даты и времени
+     * @return отформатированная строка даты и времени
      */
     private String formatTimestampToString(long timestamp) {
         Calendar calendar = Calendar.getInstance();
@@ -158,9 +158,9 @@ public class NoteActivity extends AppCompatActivity implements ImageAdapter.OnIt
             titleNoteTextView.setText(note.title);
             // Установка текста заметки
             textViewTextNote.setText(note.text);
-            // Получение URI фотографий из строки
+            // Получение URI фото из строки
             List<Uri> imageUris = getUriFromString(note.photos);
-            // Создание и установка адаптера для RecyclerView с фотографиями
+            // Создание и установка адаптера RecyclerView с фотографиями
             ImageAdapter imageAdapter = new ImageAdapter(this,
                     imageUris,
                     this,
@@ -194,8 +194,8 @@ public class NoteActivity extends AppCompatActivity implements ImageAdapter.OnIt
     /**
      * Преобразует список объектов Photo в список URI.
      *
-     * @param photos Список объектов Photo
-     * @return Список URI фотографий
+     * @param photos список объектов Photo
+     * @return список URI фото
      */
     private List<Uri> getUriFromString(List<Photo> photos) {
         List<Uri> imageUris = new ArrayList<>();
@@ -222,9 +222,9 @@ public class NoteActivity extends AppCompatActivity implements ImageAdapter.OnIt
     }
 
     /**
-     * Обрабатывает нажатие на элемент в RecyclerView с фотографиями.
+     * Обрабатывает нажатие на элемент в RecyclerView.
      *
-     * @param imageUri URI нажатой фотографии
+     * @param imageUri URI нажатого фото
      */
     @Override
     public void onItemClick(Uri imageUri) {
@@ -235,7 +235,7 @@ public class NoteActivity extends AppCompatActivity implements ImageAdapter.OnIt
     }
 
     /**
-     * Инициализирует View элементы
+     * Инициализирует View элементы.
      */
     private void initViews() {
         datetimeNoteTextView        = findViewById(R.id.datetimeNoteTextView);
@@ -258,8 +258,8 @@ public class NoteActivity extends AppCompatActivity implements ImageAdapter.OnIt
     /**
      * Создает Intent для запуска NoteActivity.
      *
-     * @param context Контекст
-     * @param note    Объект заметки для отображения
+     * @param context контекст
+     * @param note    отображаемая заметка
      * @return Intent
      */
     public static Intent newIntent(Context context, Note note) {

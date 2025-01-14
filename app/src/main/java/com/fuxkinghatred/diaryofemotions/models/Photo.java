@@ -6,12 +6,11 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 /**
- * Класс, представляющий фотографию.
+ * Модель фото.
  */
 public class Photo implements Parcelable {
-
     /**
-     * URL фотографии.
+     * URL фото.
      */
     public String url;
 
@@ -22,18 +21,18 @@ public class Photo implements Parcelable {
     }
 
     /**
-     * Конструктор для создания новой фотографии.
+     * Конструктор создания URL фото.
      *
-     * @param url URL фотографии
+     * @param url URL фото.
      */
     public Photo(String url) {
         this.url = url;
     }
 
     /**
-     * Конструктор для восстановления состояния объекта из Parcel.
+     * Конструктор восстановления состояния объекта из Parcel.
      *
-     * @param in объект Parcel, содержащий данные для восстановления
+     * @param in объект Parcel, содержащий данные для восстановления.
      */
     protected Photo(Parcel in) {
         url = in.readString();
@@ -42,7 +41,7 @@ public class Photo implements Parcelable {
     /**
      * Метод, возвращающий содержимое объекта, которое должно быть сохранено.
      *
-     * @return всегда возвращает 0, так как нет необходимости в дополнительных данных
+     * @return всегда возвращает 0, так как нет необходимости в дополнительных данных.
      */
     @Override
     public int describeContents() {
@@ -52,8 +51,8 @@ public class Photo implements Parcelable {
     /**
      * Запись содержимого объекта в Parcel.
      *
-     * @param parcel объект Parcel, в который будет записано состояние объекта
-     * @param i      флаги, определяющие поведение при записи
+     * @param parcel объект Parcel, в который будет записано состояние объекта.
+     * @param i      флаги, определяющие поведение при записи.
      */
     @Override
     public void writeToParcel(@NonNull Parcel parcel, int i) {
@@ -67,8 +66,8 @@ public class Photo implements Parcelable {
         /**
          * Создание нового объекта Photo из Parcel.
          *
-         * @param in объект Parcel, содержащий данные для восстановления
-         * @return восстановленный объект Photo
+         * @param in объект Parcel, содержащий данные для восстановления.
+         * @return восстановленный объект Photo.
          */
         @Override
         public Photo createFromParcel(Parcel in) {
@@ -78,8 +77,8 @@ public class Photo implements Parcelable {
         /**
          * Создание массива объектов Photo заданного размера.
          *
-         * @param size размер массива
-         * @return массив объектов Photo указанного размера
+         * @param size размер массива.
+         * @return массив объектов Photo указанного размера.
          */
         @Override
         public Photo[] newArray(int size) {

@@ -47,11 +47,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Активность анализа фото.
+ * Activity анализа фото.
  */
 public class AnalyzePhotosActivity extends AppCompatActivity {
     /**
-     * Тег для логирования.
+     * Тег логирования.
      */
     private static final String TAG = Constants.Debug.TAG_ANALYZE_PHOTO_ACTIVITY;
 
@@ -91,72 +91,72 @@ public class AnalyzePhotosActivity extends AppCompatActivity {
     private Spinner spinnerEmotions;
 
     /**
-     * Layout для исправления эмоционального состояния.
+     * Layout исправления эмоционального состояния.
      */
     private LinearLayout linearLayoutCorrectEmotionalState;
 
     /**
-     * Layout для кнопки закрытия.
+     * Layout кнопки закрытия.
      */
     private LinearLayout linearLayoutClose;
 
     /**
-     * Layout для кнопок "Да/Нет".
+     * Layout кнопок "Да/Нет".
      */
     private LinearLayout linearLayoutRight;
 
     /**
-     * ImageView для отображения яркого цвета.
+     * ImageView яркого цвета.
      */
     private ImageView imageViewVibrantColor;
 
     /**
-     * ImageView для отображения светлого яркого цвета.
+     * ImageView светлого яркого цвета.
      */
     private ImageView imageViewLightVibrantColor;
 
     /**
-     * ImageView для отображения темного яркого цвета.
+     * ImageView темного яркого цвета.
      */
     private ImageView imageViewDarkVibrantColor;
 
     /**
-     * ImageView для отображения приглушенного цвета.
+     * ImageView приглушенного цвета.
      */
     private ImageView imageViewMuted;
 
     /**
-     * ImageView для отображения темного приглушенного цвета.
+     * ImageView темного приглушенного цвета.
      */
     private ImageView imageViewDarkMuted;
 
     /**
-     * ImageView для отображения светлого приглушенного цвета.
+     * ImageView светлого приглушенного цвета.
      */
     private ImageView imageViewLightMuted;
 
     /**
-     * ImageView для отображения анализируемого изображения.
+     * ImageView анализируемого изображения.
      */
     private ImageView imageViewAnalyze;
 
     /**
-     * ImageView для отображения доминантного цвета.
+     * ImageView доминантного цвета.
      */
     private ImageView imageViewDominantColor;
 
     /**
-     * TextView для отображения предсказанной эмоции.
+     * TextView предсказанной эмоции.
      */
     private TextView textViewPredictedEmotion;
 
     /**
-     * ViewModel для управления данными.
+     * ViewModel для AnalyzePhotoActivity.
      */
     private AnalyzePhotoViewModel analyzePhotoViewModel;
 
     /**
-     * Массив для хранения HSL значений цвета.
+     * Массив значений цвета HSL.
      */
     private final float[] hsl = new float[3];
 
@@ -195,26 +195,26 @@ public class AnalyzePhotosActivity extends AppCompatActivity {
         // Скрываем ScrollView и показываем ProgressBar, пока предсказывается
         scrollViewAnalyzePhoto.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
-        // Скрываем Layout исправления эмоций
+        // Скрываем layout исправления эмоций
         linearLayoutCorrectEmotionalState.setVisibility(View.GONE);
         linearLayoutRight.setVisibility(View.GONE);
         // Скрываем кнопку закрытия
         buttonClose.setVisibility(View.GONE);
-        // Загружаем изображение
+        // Загрузка изображения
         setImage();
-        // Инициализируем ViewModel
-        setViewModelProviders();
-        // Устанавливаем слушателей
+        // Установка ViewModel
+        setViewModelProvider();
+        // Установка слушателей
         setListeners();
-        // Устанавливаем наблюдателей
+        // Установка наблюдателей
         setObservers();
     }
 
     /**
-     * Устанавливает слушателей для UI элементов.
+     * Устанавливает слушателей.
      */
     private void setListeners() {
-        // Слушатель для ImageView, чтобы открыть изображение на весь экран
+        // Слушатель ImageView открывает изображение на весь экран
         imageViewAnalyze.setOnClickListener(view -> {
             Intent intent = new Intent(this, EnlargedImageViewActivity.class);
             intent.putExtra(Constants.Extras.EXTRA_IMAGE_URI,
@@ -227,11 +227,11 @@ public class AnalyzePhotosActivity extends AppCompatActivity {
         buttonClose.setOnClickListener(view -> finish());
         buttonCorrect.setOnClickListener(view -> correctButtonClick());
 
-        // Если LinearLayout для исправления эмоционального состояния не null, то настраиваем Spinner
+        // Если LinearLayout исправления эмоционального состояния не null, то настраиваем Spinner
         if (linearLayoutCorrectEmotionalState != null) {
             // Заполняем Spinner эмоциями
             setEmotionsToSpinner();
-            // Слушатель для выбора эмоции из Spinner
+            // Слушатель выбора эмоции из Spinner
             spinnerEmotions.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -269,13 +269,13 @@ public class AnalyzePhotosActivity extends AppCompatActivity {
                 String predictedEmotionText = getString(R.string.predicted_emotion) + " " + predictedEmotion;
                 textViewPredictedEmotion.setText(predictedEmotionText);
                 emotionPredicted = predictedEmotion;
-                // Пока не установим предсказанную эмоцию ничего не показываем
+                // Пока не установим предсказанную эмоцию, ничего не показываем
                 progressBar.setVisibility(View.GONE);
                 scrollViewAnalyzePhoto.setVisibility(View.VISIBLE);
                 linearLayoutRight.setVisibility(View.VISIBLE);
             }
         });
-        // Наблюдатель для сообщений об ошибках
+        // Наблюдатель сообщений об ошибках
         analyzePhotoViewModel.getErrorMessage().observe(this, errorMessage -> {
             Log.d(
                     TAG,
@@ -297,14 +297,14 @@ public class AnalyzePhotosActivity extends AppCompatActivity {
     /**
      * Инициализирует ViewModel.
      */
-    private void setViewModelProviders() {
+    private void setViewModelProvider() {
         EmotionPredictionRepository repository = new EmotionPredictionRepository();
         AnalyzePhotoViewModelFactory factory = new AnalyzePhotoViewModelFactory(getApplication(), repository);
         analyzePhotoViewModel = new ViewModelProvider(this, factory).get(AnalyzePhotoViewModel.class);
     }
 
     /**
-     * Меняет имя эмоции для соответствия имени в базе данных
+     * Меняет эмоцию на соответствующую в базе данных.
      */
     private String changeEmotionName(String emotion) {
         switch (emotion) {
@@ -324,7 +324,7 @@ public class AnalyzePhotosActivity extends AppCompatActivity {
     }
 
     /**
-     * Находит доминирующие цвета в изображении с помощью Palette.
+     * Находит доминирующие цвета на изображении с помощью Palette.
      */
     private void findDominantColor(Bitmap bitmap, final PaletteCallback callback) {
         Palette.from(bitmap).generate(palette -> {
@@ -351,7 +351,7 @@ public class AnalyzePhotosActivity extends AppCompatActivity {
                                 " darkMuted: " + darkMuted + "\n" +
                                 " lightMuted: " + lightMuted + "\n"
                 );
-                // Устанавливаем фоны ImageView полученными цветами
+                // Заполняем фоны ImageView полученными цветами
                 setImageViewBackground(imageViewVibrantColor, vibrantColor);
                 setImageViewBackground(imageViewLightVibrantColor, lightVibrantColor);
                 setImageViewBackground(imageViewDarkVibrantColor, darkVibrantColor);
@@ -375,23 +375,23 @@ public class AnalyzePhotosActivity extends AppCompatActivity {
     }
 
     /**
-     * Устанавливает фон для ImageView.
+     * Устанавливает фон ImageView.
      */
     private void setImageViewBackground(ImageView imageView, int color) {
         // Проверяем на прозрачность
         if (color != Color.TRANSPARENT) {
             imageView.setBackgroundColor(color);
         } else {
-            // Если цвет прозрачный, убираем фон ImageView (делаем его по умолчанию)
+            // Если цвет прозрачный, убираем фон ImageView
             imageView.setBackground(null);
-
+            // Если фон не установлен, то скрываем ImageView
             if (imageView.getBackground() == null)
                 imageView.setVisibility(View.GONE);
         }
     }
 
     /**
-     * Получает средний цвет из палитры.
+     * Получает превалирующий цвет из палитры.
      */
     public int getDominantColorFromPalette(Palette palette) {
         return palette == null || palette.getSwatches().isEmpty() ?
@@ -520,7 +520,7 @@ public class AnalyzePhotosActivity extends AppCompatActivity {
     }
 
     /**
-     * Получает ресурс изображения для эмоции.
+     * Получает ресурс изображения для каждой эмоции.
      */
     private int getImageResourceForEmotion(String emotion) {
         switch (emotion) {
@@ -561,10 +561,10 @@ public class AnalyzePhotosActivity extends AppCompatActivity {
                                                     @Nullable Transition<? super Bitmap> transition) {
                             // Устанавливаем полученное изображение в ImageView
                             imageViewAnalyze.setImageBitmap(resource);
-                            // Находим доминирующие цвета
+                            // Находим превалирующие цвета
                             findDominantColor(resource, palette -> {
                                 if (palette != null) {
-                                    // Получаем доминантный цвет из палитры
+                                    // Получаем превалирующий цвет из палитры
                                     int color = getDominantColorFromPalette(palette);
                                     // Получаем HSL значения цвета
                                     // Возвращает h: 0-360, s: 0-1, l: 0-1
@@ -628,7 +628,7 @@ public class AnalyzePhotosActivity extends AppCompatActivity {
     }
 
     /**
-     * Инициализирует UI элементы.
+     * Инициализирует View элементы.
      */
     private void initViews() {
         scrollViewAnalyzePhoto            = findViewById(R.id.scrollViewAnalyzePhoto);
@@ -653,7 +653,12 @@ public class AnalyzePhotosActivity extends AppCompatActivity {
     }
 
     /**
-     * Создает Intent для запуска данной Activity.
+     * Создает Intent для запуска AnalyzePhotosActivity.
+     *
+     * @param context  контекст
+     * @param note     заметка
+     * @param imageUri URI анализируемого фото
+     * @return Intent
      */
     public static Intent newIntent(Context context, Note note, String imageUri) {
         Intent intent = new Intent(context, AnalyzePhotosActivity.class);

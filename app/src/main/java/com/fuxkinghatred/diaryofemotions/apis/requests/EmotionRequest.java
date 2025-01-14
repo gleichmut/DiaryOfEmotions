@@ -1,20 +1,29 @@
 package com.fuxkinghatred.diaryofemotions.apis.requests;
 
 /**
- * Класс запроса для передачи данных об эмоции.
+ * Модель запроса для получения эмоций.
  */
 public class EmotionRequest {
 
+    /**
+     * Hue (оттенок).
+     */
     private final float h;
+    /**
+     * Saturation (насыщенность).
+     */
     private final float s;
+    /**
+     * Lightness (яркость).
+     */
     private final float l;
 
     /**
-     * Конструктор для создания объекта запроса.
+     * Конструктор объекта запроса.
      *
-     * @param h значение оттенка (hue)
-     * @param s значение насыщенности (saturation)
-     * @param l значение яркости (lightness)
+     * @param h значение оттенка (hue).
+     * @param s значение насыщенности (saturation).
+     * @param l значение яркости (lightness).
      */
     public EmotionRequest(float h, float s, float l) {
         this.h = h;
@@ -23,27 +32,27 @@ public class EmotionRequest {
     }
 
     /**
-     * Геттер для получения значения оттенка (hue).
+     * Геттер значения оттенка (hue).
      *
-     * @return значение оттенка
+     * @return значение оттенка.
      */
     public float getH() {
         return h;
     }
 
     /**
-     * Геттер для получения значения насыщенности (saturation).
+     * Геттер значения насыщенности (saturation).
      *
-     * @return значение насыщенности
+     * @return значение насыщенности.
      */
     public float getS() {
         return s;
     }
 
     /**
-     * Геттер для получения значения яркости (lightness).
+     * Геттер значения яркости (lightness).
      *
-     * @return значение яркости
+     * @return значение яркости.
      */
     public float getL() {
         return l;

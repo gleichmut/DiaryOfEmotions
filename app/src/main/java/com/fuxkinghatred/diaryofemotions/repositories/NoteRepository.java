@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class NoteRepository {
     /**
-     * Тег для логирования.
+     * Тег логирования.
      */
     private static final String TAG = Constants.Debug.TAG_NOTE_REPOSITORY;
     /**
@@ -48,10 +48,10 @@ public class NoteRepository {
     }
 
     /**
-     * Сохраняет заметку в Firebase Realtime Database.
+     * Сохраняет заметку.
      *
-     * @param note Заметка для сохранения.
-     * @return LiveData с сохраненной заметкой.
+     * @param note заметка для сохранения.
+     * @return LiveData сохраненной заметки.
      */
     public LiveData<Note> saveNote(Note note) {
         MutableLiveData<Note> savedNote = new MutableLiveData<>();
@@ -78,19 +78,19 @@ public class NoteRepository {
     }
 
     /**
-     * Получает все заметки текущего пользователя из Firebase Realtime Database.
+     * Получает все заметки текущего пользователя.
      *
-     * @return LiveData со списком заметок.
+     * @return LiveData списка заметок.
      */
     public LiveData<List<Note>> getAllNotesForCurrentUser() {
         // Запись времени начала запроса
         long startTime = System.nanoTime();
         MutableLiveData<List<Note>> notesLiveData = new MutableLiveData<>();
-        // Создание запроса для получения заметок текущего пользователя
+        // Создание запроса получения заметок текущего пользователя
         Query query = databaseReference
                 .orderByChild(Constants.Queries.QUERY_ORDER_BY_CHILD_USER_ID)
                 .equalTo(currentUserId);
-        // Слушатель для получения данных из Firebase
+        // Слушатель получения данных из базы данных
         ValueEventListener listener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -123,7 +123,6 @@ public class NoteRepository {
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Установка null в LiveData при ошибке
                 notesLiveData.setValue(null);
-                // Логирование ошибки
                 Log.e(
                         TAG,
                         "getAllNotesForCurrentUser: " +
@@ -131,17 +130,17 @@ public class NoteRepository {
                 );
             }
         };
-        // Добавление слушателя к запросу
+        // Добавление слушателя запроса
         query.addValueEventListener(listener);
-        // Возврат LiveData со списком заметок
+        // Возврат LiveData списка заметок
         return notesLiveData;
     }
 
     /**
-     * Удаляет заметку из Firebase Realtime Database.
+     * Удаляет заметку.
      *
      * @param noteId ID заметки для удаления.
-     * @return Task<Void> для отслеживания статуса удаления
+     * @return Task<Void> для отслеживания статуса удаления.
      */
     public Task<Void> deleteNoteFromDatabase(String noteId) {
         Log.d(

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 /**
- * Класс, представляющий заметку.
+ * Модель заметки.
  */
 public class Note implements Parcelable {
     /**
@@ -44,14 +44,14 @@ public class Note implements Parcelable {
     public String emotion;
 
     /**
-     * Список фотографий, связанных с заметкой.
+     * Список прикрепленных фото к заметке.
      */
     public List<Photo> photos;
 
     /**
      * Получает уникальный идентификатор заметки.
      *
-     * @return уникальный идентификатор заметки
+     * @return уникальный идентификатор заметки.
      */
     public String getNoteId() {
         return noteId;
@@ -64,32 +64,32 @@ public class Note implements Parcelable {
     }
 
     /**
-     * Получает список фото в заметке.
+     * Получает прикрепленных фото к заметке.
      *
-     * @return список фото в заметке
+     * @return прикрепленных фото к заметке.
      */
     public List<Photo> getPhotos() {
         return photos;
     }
 
     /**
-     * Генерация уникального идентификатора для записи.
+     * Генерирует уникальный идентификатор заметки.
      *
-     * @return сгенерированный уникальный идентификатор
+     * @return сгенерированный уникальный идентификатор заметки.
      */
     private String generateNoteId() {
         return UUID.randomUUID().toString();
     }
 
     /**
-     * Конструктор для создания новой заметки.
+     * Конструктор создания заметки.
      *
-     * @param userId    идентификатор пользователя
-     * @param timestamp временная метка создания заметки
-     * @param title     заголовок заметки
-     * @param text      основной текст заметки
-     * @param emotion   эмоция, ассоциированная с заметкой
-     * @param photos    список фотографий, связанных с заметкой
+     * @param userId    идентификатор пользователя.
+     * @param timestamp временная метка создания заметки.
+     * @param title     заголовок заметки.
+     * @param text      основной текст заметки.
+     * @param emotion   эмоция, ассоциированная с заметкой.
+     * @param photos    список прикрепленных фото к заметке.
      */
     public Note(String userId,
                 long timestamp,
@@ -110,9 +110,9 @@ public class Note implements Parcelable {
     }
 
     /**
-     * Конструктор для восстановления состояния объекта из Parcel.
+     * Конструктор восстановления состояния объекта из Parcel.
      *
-     * @param in объект Parcel, содержащий данные для восстановления
+     * @param in объект Parcel, содержащий данные для восстановления.
      */
     protected Note(Parcel in) {
         noteId    = in.readString();
@@ -127,7 +127,7 @@ public class Note implements Parcelable {
     /**
      * Возвращает строковое представление объекта Note.
      *
-     * @return строковое представление объекта
+     * @return строковое представление объекта.
      */
     @NonNull
     @Override
@@ -147,7 +147,7 @@ public class Note implements Parcelable {
     /**
      * Метод, возвращающий содержимое объекта, которое должно быть сохранено.
      *
-     * @return всегда возвращает 0, так как нет необходимости в дополнительных данных
+     * @return всегда возвращает 0, так как нет необходимости в дополнительных данных.
      */
     @Override
     public int describeContents() {
@@ -157,8 +157,8 @@ public class Note implements Parcelable {
     /**
      * Запись содержимого объекта в Parcel.
      *
-     * @param parcel объект Parcel, в который будет записано состояние объекта
-     * @param i      флаги, определяющие поведение при записи
+     * @param parcel объект Parcel, в который будет записано состояние объекта.
+     * @param i      флаги, определяющие поведение при записи.
      */
     @Override
     public void writeToParcel(@NonNull Parcel parcel, int i) {
@@ -178,8 +178,8 @@ public class Note implements Parcelable {
         /**
          * Создание нового объекта Note из Parcel.
          *
-         * @param in объект Parcel, содержащий данные для восстановления
-         * @return восстановленный объект Note
+         * @param in объект Parcel, содержащий данные для восстановления.
+         * @return восстановленный объект Note.
          */
         @Override
         public Note createFromParcel(Parcel in) {
@@ -189,8 +189,8 @@ public class Note implements Parcelable {
         /**
          * Создание массива объектов Note заданного размера.
          *
-         * @param size размер массива
-         * @return массив объектов Note указанного размера
+         * @param size размер массива.
+         * @return массив объектов Note указанного размера.
          */
         @Override
         public Note[] newArray(int size) {

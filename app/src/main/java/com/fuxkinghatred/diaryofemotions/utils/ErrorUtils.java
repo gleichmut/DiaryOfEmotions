@@ -5,17 +5,16 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 /**
- * Класс локализации ошибок
+ * Класс локализации ошибок.
  */
 public class ErrorUtils {
     /**
      * Возвращает ошибку на русском языке.
      *
-     * @param errorCode код ошибки
-     * @return ошибка на русском языке
+     * @param errorCode код ошибки.
+     * @return ошибка на русском языке.
      */
     public static String getLocalizedErrorMessage(@NonNull String errorCode) {
-
         switch (errorCode) {
             case "ERROR_INVALID_EMAIL":
                 return "Неверный формат электронной почты";

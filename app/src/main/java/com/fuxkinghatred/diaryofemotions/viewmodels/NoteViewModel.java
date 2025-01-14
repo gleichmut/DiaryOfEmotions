@@ -11,28 +11,28 @@ import com.fuxkinghatred.diaryofemotions.repositories.NoteRepository;
 import java.util.List;
 
 /**
- * ViewModel для управления данными заметок.
+ * ViewModel для NoteActivity.
  */
 public class NoteViewModel extends ViewModel {
     /**
-     * Репозиторий заметок.
+     * Репозиторий для работы с заметками.
      */
     private final NoteRepository repository;
 
     /**
      * Конструктор класса.
      *
-     * @param repository Репозиторий заметок.
+     * @param repository репозиторий для работы с заметками.
      */
     public NoteViewModel(NoteRepository repository) {
         this.repository = repository;
     }
 
     /**
-     * Возвращает LiveData со списком всех заметок текущего пользователя.
+     * Возвращает LiveData списка заметок текущего пользователя.
      * Запрашивает данные через NoteRepository.
      *
-     * @return LiveData со списком заметок текущего пользователя.
+     * @return LiveData списка заметок текущего пользователя.
      */
     public LiveData<List<Note>> getAllNotesForCurrentUser() {
         return repository.getAllNotesForCurrentUser();
@@ -40,7 +40,8 @@ public class NoteViewModel extends ViewModel {
 
     /**
      * Удаление заметки.
-     * @param noteId ID заметки
+     *
+     * @param noteId ID заметки.
      */
     public void deleteNote(String noteId) {
         repository.deleteNoteFromDatabase(noteId);

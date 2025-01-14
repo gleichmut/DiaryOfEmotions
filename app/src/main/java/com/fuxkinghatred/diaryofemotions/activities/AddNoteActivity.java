@@ -63,11 +63,11 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 
 /**
- * Активность добавления/редактирования заметки.
+ * Activity добавления / редактирования заметки.
  */
 public class AddNoteActivity extends AppCompatActivity implements ImageAdapter.OnItemClickListener {
     /**
-     * Тег для логирования.
+     * Тег логирования.
      */
     private static final String TAG = Constants.Debug.TAG_ADD_NOTE_ACTIVITY;
 
@@ -87,42 +87,41 @@ public class AddNoteActivity extends AppCompatActivity implements ImageAdapter.O
     private TextView textViewActionNote;
 
     /**
-     * Поле ввода для заголовка заметки.
+     * Поле ввода заголовка заметки.
      */
     private EditText editTextTitleOfNote;
 
     /**
-     * Поле ввода для текста заметки.
+     * Поле ввода текста заметки.
      */
     private EditText editTextTextOfNote;
 
     /**
-     * Кнопка для выбора даты.
+     * Кнопка выбора даты.
      */
     private ImageButton imageButtonSelectDate;
 
     /**
-     * Кнопка для выбора времени.
+     * Кнопка выбора времени.
      */
     private ImageButton imageButtonSelectTime;
-
     /**
-     * Кнопка для загрузки фото.
+     * Кнопка загрузки фото.
      */
     private ImageButton imageButtonUploadPhoto;
 
     /**
-     * Кнопка для распознавания речи.
+     * Кнопка начала распознавания речи.
      */
     private ImageButton imageButtonRecognizeSpeech;
 
     /**
-     * Кнопка для очистки текста заметки.
+     * Кнопка очистки текста заметки.
      */
     private ImageButton imageButtonClearTextOfNote;
 
     /**
-     * Кнопка для сохранения заметки.
+     * Кнопка сохранения заметки.
      */
     private Button buttonSave;
 
@@ -132,12 +131,12 @@ public class AddNoteActivity extends AppCompatActivity implements ImageAdapter.O
     private RecyclerView recyclerViewImageView;
 
     /**
-     * ViewModel для работы с датой и временем.
+     * ViewModel для выбора даты и времени.
      */
     private DateTimePickerViewModel dateTimePickerViewModel;
 
     /**
-     * ViewModel для работы с заметками.
+     * ViewModel для AddNoteActivity.
      */
     private AddNoteViewModel addNoteViewModel;
 
@@ -147,22 +146,22 @@ public class AddNoteActivity extends AppCompatActivity implements ImageAdapter.O
     private ImageAdapter imageAdapter;
 
     /**
-     * Лаунчер для запроса разрешений.
+     * Лаунчер запроса разрешений.
      */
     private ActivityResultLauncher<String[]> permissionLauncher;
 
     /**
-     * Лаунчер для камеры.
+     * Лаунчер камеры.
      */
     private ActivityResultLauncher<Intent> cameraLauncher;
 
     /**
-     * Лаунчер для галереи.
+     * Лаунчер галереи.
      */
     private ActivityResultLauncher<Intent> galleryLauncher;
 
     /**
-     * Лаунчер для распознавания речи.
+     * Лаунчер распознавания речи.
      */
     private ActivityResultLauncher<Intent> speechRecognizerLauncher;
 
@@ -197,7 +196,7 @@ public class AddNoteActivity extends AppCompatActivity implements ImageAdapter.O
     private Note loadedNote;
 
     /**
-     * Handler для периодического обновления времени
+     * Handler для периодического обновления времени.
      */
     private final Handler handler = new Handler(Looper.getMainLooper());
 
@@ -226,7 +225,7 @@ public class AddNoteActivity extends AppCompatActivity implements ImageAdapter.O
         // Установка адаптеров
         setAdapters();
         // Установка ViewModel
-        setViewModelProviders();
+        setViewModelProvider();
         // Установка лаунчеров
         setActivityLaunchers();
         // Установка слушателей
@@ -234,7 +233,7 @@ public class AddNoteActivity extends AppCompatActivity implements ImageAdapter.O
         // Установка наблюдателей
         setObservers();
 
-        // Получаем переданную заметку для редактирования
+        // Получаем переданную заметку на редактирование
         loadedNote = getIntent().getParcelableExtra(Constants.Extras.EXTRA_CURRENT_NOTE);
         // Если заметка передана
         if (loadedNote != null) {
@@ -242,7 +241,7 @@ public class AddNoteActivity extends AppCompatActivity implements ImageAdapter.O
             textViewActionNote.setText("Редактирование заметки");
             // Загружаем данные заметки
             loadNoteData(loadedNote);
-            // Устанавливаем дату и время с заметки
+            // Устанавливаем дату и время заметки
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(loadedNote.timestamp);
             dateTimePickerViewModel.setDate(calendar);
@@ -507,25 +506,25 @@ public class AddNoteActivity extends AppCompatActivity implements ImageAdapter.O
     }
 
     /**
-     * Устанавливает слушателей для кнопок.
+     * Устанавливает слушателей.
      */
     private void setListeners() {
-        // Слушатель для кнопки выбора даты
+        // Слушатель кнопки выбора даты
         imageButtonSelectDate.setOnClickListener(view -> onShowDatePicker());
-        // Слушатель для кнопки выбора времени
+        // Слушатель кнопки выбора времени
         imageButtonSelectTime.setOnClickListener(view -> onShowTimePicker());
-        // Слушатель для кнопки распознавания речи
+        // Слушатель кнопки распознавания речи
         imageButtonRecognizeSpeech.setOnClickListener(view -> checkPermissionsAndStartSpeechRecognition());
-        // Слушатель для кнопки очистки текста
+        // Слушатель кнопки очистки текста
         imageButtonClearTextOfNote.setOnClickListener(view -> clearTextOfNote());
-        // Слушатель для кнопки загрузки фото
+        // Слушатель кнопки загрузки фото
         imageButtonUploadPhoto.setOnClickListener(view -> checkAndRequestPermissions());
-        // Слушатель для кнопки сохранения
+        // Слушатель кнопки сохранения
         buttonSave.setOnClickListener(view -> saveNote());
     }
 
     /**
-     * Очищает текст в поле ввода заметки.
+     * Очищает текст заметки.
      */
     private void clearTextOfNote() {
         editTextTextOfNote.getText().clear();
@@ -557,7 +556,7 @@ public class AddNoteActivity extends AppCompatActivity implements ImageAdapter.O
     }
 
     /**
-     * Проверяет наличие поддержки распознавания речи и запускает её.
+     * Проверяет наличие поддержки распознавания речи.
      */
     private void startRecognizeSpeech() {
         PackageManager packageManager = getPackageManager();
@@ -720,17 +719,17 @@ public class AddNoteActivity extends AppCompatActivity implements ImageAdapter.O
     }
 
     /**
-     * Устанавливает ViewModelProviders.
+     * Инициализирует ViewModel.
      */
-    private void setViewModelProviders() {
+    private void setViewModelProvider() {
         // Создание репозитория
         NoteRepository repository = new NoteRepository(getExtraIds());
-        // Создание ViewModel для даты и времени
+        // Создание ViewModel даты и времени
         dateTimePickerViewModel = new ViewModelProvider(this)
                 .get(DateTimePickerViewModel.class);
         // Создание фабрики для AddNoteViewModel
         AddNoteViewModelFactory factory = new AddNoteViewModelFactory(repository);
-        // Создание ViewModel для заметок
+        // Создание ViewModel для AddNoteViewModel
         addNoteViewModel = new ViewModelProvider(this, factory).get(AddNoteViewModel.class);
     }
 
@@ -738,14 +737,14 @@ public class AddNoteActivity extends AppCompatActivity implements ImageAdapter.O
      * Устанавливает адаптеры.
      */
     private void setAdapters() {
-        // Создание адаптера для изображений
+        // Создание адаптера изображений
         imageAdapter = new ImageAdapter(AddNoteActivity.this,
                 imageUris,
                 this,
                 null);
         // Установка менеджера компоновки
         recyclerViewImageView.setLayoutManager(new GridLayoutManager(this, 3));
-        // Установка адаптера для RecyclerView
+        // Установка адаптера RecyclerView
         recyclerViewImageView.setAdapter(imageAdapter);
     }
 
@@ -777,7 +776,7 @@ public class AddNoteActivity extends AppCompatActivity implements ImageAdapter.O
     }
 
     /**
-     * Показывает диалог для выбора источника изображения (камера или галерея).
+     * Показывает диалог выбора источника изображения (камера или галерея).
      */
     private void showImageSourceDialog() {
         new AlertDialog.Builder(this)
@@ -795,7 +794,7 @@ public class AddNoteActivity extends AppCompatActivity implements ImageAdapter.O
 
                             ContentResolver resolver = getContentResolver();
                             try {
-                                // Создание URI для изображения
+                                // Создание URI изображения
                                 imageUri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                                         values);
                                 if (imageUri == null) {

@@ -14,11 +14,11 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import java.util.Objects;
 
 /**
- * ViewModel для управления процессом регистрации пользователя.
+ * ViewModel для RegistrationActivity.
  */
 public class RegistrationViewModel extends ViewModel {
     /**
-     * Тег для логирования.
+     * Тег логирования.
      */
     private static final String TAG = Constants.Debug.TAG_REGISTRATION_VIEW_MODEL;
     /**
@@ -26,11 +26,11 @@ public class RegistrationViewModel extends ViewModel {
      */
     private FirebaseAuth auth;
     /**
-     * LiveData, хранящая сообщение об ошибке регистрации.
+     * LiveData ошибок регистрации.
      */
     private final MutableLiveData<String> error = new MutableLiveData<>();
     /**
-     * LiveData, хранящая текущего зарегистрированного пользователя.
+     * LiveData текущего зарегистрированного пользователя.
      */
     private final MutableLiveData<FirebaseUser> user = new MutableLiveData<>();
 
@@ -45,9 +45,9 @@ public class RegistrationViewModel extends ViewModel {
     }
 
     /**
-     * Возвращает LiveData с сообщением об ошибке.
+     * Возвращает LiveData сообщения об ошибке.
      *
-     * @return LiveData с сообщением об ошибке.
+     * @return LiveData сообщения об ошибке.
      */
     public LiveData<String> getError() {
         return error;
@@ -72,12 +72,12 @@ public class RegistrationViewModel extends ViewModel {
     }
 
     /**
-     * Регистрирует нового пользователя с помощью email, пароля и имени пользователя.
+     * Регистрирует нового пользователя с помощью почты, пароля и имени пользователя.
      * После успешной регистрации обновляет профиль пользователя, устанавливая его имя.
      *
-     * @param email    Email нового пользователя.
-     * @param password Пароль нового пользователя.
-     * @param name     Имя нового пользователя.
+     * @param email    почта нового пользователя.
+     * @param password пароль нового пользователя.
+     * @param name     имя нового пользователя.
      */
     public void register(String email, String password, String name) {
         auth.createUserWithEmailAndPassword(email, password)

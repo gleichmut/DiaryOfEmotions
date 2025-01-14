@@ -15,8 +15,8 @@ public interface EmotionApi {
     /**
      * Отправляет запрос на сервер для предсказания эмоции.
      *
-     * @param emotionRequest объект запроса, содержащий данные для предсказания эмоции
-     * @return ответ сервера с результатом предсказания эмоции
+     * @param emotionRequest объект запроса, содержащий данные для предсказания эмоции.
+     * @return ответ сервера с результатом предсказания эмоции.
      */
     @POST("/predict_emotion")
     Call<PredictionResponse> predictEmotion(@Body EmotionRequest emotionRequest);

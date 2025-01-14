@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 
 /**
- * ViewModel для управления логикой, связанной с заметками пользователя.
+ * ViewModel для MyNotesActivity.
  */
 public class MyNotesViewModel extends ViewModel {
     /**

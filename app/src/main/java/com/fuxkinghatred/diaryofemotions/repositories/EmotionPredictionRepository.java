@@ -15,18 +15,18 @@ import com.google.firebase.database.FirebaseDatabase;
  */
 public class EmotionPredictionRepository {
     /**
-     * Тег для логирования.
+     * Тег логирования.
      */
-    private static final String                   TAG               = Constants.Debug.TAG_EMOTION_PREDICTION_REPOSITORY;
+    private static final String TAG = Constants.Debug.TAG_EMOTION_PREDICTION_REPOSITORY;
     /**
      * Ссылка на таблицу предсказаний эмоций в Firebase Realtime Database.
      */
-    private final        DatabaseReference        databaseReference = FirebaseDatabase.getInstance()
+    private final DatabaseReference databaseReference = FirebaseDatabase.getInstance()
             .getReference(Constants.DatabaseReferences.TABLE_EMOTION_PREDICTION);
     /**
-     * LiveData для отслеживания статуса сохранения предсказания.
+     * LiveData статуса сохранения предсказания.
      */
-    private final        MutableLiveData<Boolean> isSaved           = new MutableLiveData<>(false);
+    private final MutableLiveData<Boolean> isSaved = new MutableLiveData<>(false);
 
     /**
      * Конструктор репозитория.
@@ -35,13 +35,13 @@ public class EmotionPredictionRepository {
     }
 
     /**
-     * Сохраняет предсказание эмоции в Firebase Realtime Database.
+     * Сохраняет предсказание эмоции.
      *
-     * @param h       Значение H (Hue) цветовой модели HSL.
-     * @param s       Значение S (Saturation) цветовой модели HSL.
-     * @param l       Значение L (Lightness) цветовой модели HSL.
-     * @param emotion Название эмоции.
-     * @return LiveData со статусом сохранения (true - успешно, false - ошибка).
+     * @param h       Hue (оттенок).
+     * @param s       Saturation (насыщенность).
+     * @param l       Lightness (яркость).
+     * @param emotion предсказанная эмоция.
+     * @return LiveData статуса сохранения (true - успешно, false - ошибка).
      */
     public LiveData<Boolean> saveEmotionPrediction(int h, int s, int l, String emotion) {
         // Создание объекта предсказания эмоции
@@ -68,7 +68,7 @@ public class EmotionPredictionRepository {
                     // Установка значения false в LiveData при ошибке сохранения
                     isSaved.setValue(false);
                 });
-        // Возвращение LiveData со статусом сохранения
+        // Возвращение LiveData статуса сохранения
         return isSaved;
     }
 }

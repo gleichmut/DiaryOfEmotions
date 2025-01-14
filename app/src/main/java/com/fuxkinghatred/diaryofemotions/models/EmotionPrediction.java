@@ -1,37 +1,36 @@
 package com.fuxkinghatred.diaryofemotions.models;
 
 /**
- * Класс, представляющий прогнозируемую эмоцию.
+ * Модель предсказания эмоции.
  */
 public class EmotionPrediction {
-
     /**
-     * Значение оттенка (Hue).
+     * Hue (оттенок).
      */
     public final int h;
 
     /**
-     * Значение насыщенности (Saturation).
+     * Saturation (насыщенность).
      */
     public final int s;
 
     /**
-     * Значение яркости (Lightness).
+     * Lightness (яркость).
      */
     public final int l;
 
     /**
-     * Прогнозируемое имя эмоции.
+     * Предсказанная эмоция.
      */
     public final String emotion;
 
     /**
-     * Конструктор для создания нового прогноза эмоции.
+     * Конструктор создания прогноза эмоции.
      *
-     * @param h       значение оттенка (Hue)
-     * @param s       значение насыщенности (Saturation)
-     * @param l       значение яркости (Lightness)
-     * @param emotion прогнозируемое имя эмоции
+     * @param h       Hue (оттенок).
+     * @param s       Saturation (насыщенность).
+     * @param l       Lightness (яркость).
+     * @param emotion предсказанная эмоция.
      */
     public EmotionPrediction(int h, int s, int l, String emotion) {
         this.h       = h;

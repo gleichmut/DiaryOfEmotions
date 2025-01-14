@@ -26,41 +26,41 @@ import com.fuxkinghatred.diaryofemotions.utils.ErrorUtils;
 import com.fuxkinghatred.diaryofemotions.viewmodels.LoginViewModel;
 
 /**
- * Активность авторизации.
+ * Activity авторизации.
  */
 public class LoginActivity extends AppCompatActivity {
     /**
-     * Тег для логирования.
+     * Тег логирования.
      */
     private static final String TAG = Constants.Debug.TAG_LOGIN_ACTIVITY;
 
     /**
-     * ViewModel для управления логикой входа.
+     * ViewModel для LoginActivity.
      */
     private LoginViewModel loginViewModel;
 
     /**
-     * TextView для "Забыли пароль?".
+     * TextView "Забыли пароль?".
      */
     private TextView textViewForgotPassword;
 
     /**
-     * EditText для ввода почты.
+     * Поле ввода почты.
      */
     private EditText editTextEmail;
 
     /**
-     * EditText для ввода пароля.
+     * Поле ввода пароля.
      */
     private EditText editTextPassword;
 
     /**
-     * Кнопка для входа.
+     * Кнопка входа.
      */
     private Button buttonLogin;
 
     /**
-     * Кнопка для перехода к регистрации.
+     * Кнопка перехода к регистрации.
      */
     private Button buttonRegister;
 
@@ -87,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
         // Инициализация view элементов
         initView();
         // Установка ViewModel
-        setViewModelProviders();
+        setViewModelProvider();
         // Установка наблюдателей
         setObservers();
         // Установка слушателей
@@ -95,9 +95,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Устанавливает ViewModelProviders.
+     * Инициализирует ViewModel.
      */
-    private void setViewModelProviders() {
+    private void setViewModelProvider() {
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
     }
 
@@ -105,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
      * Устанавливает наблюдателей за LiveData.
      */
     private void setObservers() {
-        // Наблюдатель за ошибками
+        // Наблюдатель ошибок
         loginViewModel.getError().observe(this, error -> {
             Log.d(
                     TAG,
@@ -126,7 +126,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        // Наблюдатель за данными пользователя после авторизации
+        // Наблюдатель авторизации пользователя
         loginViewModel.getUser().observe(this, firebaseUser -> {
             Log.d(
                     TAG,
@@ -189,15 +189,15 @@ public class LoginActivity extends AppCompatActivity {
      * Устанавливает слушателей.
      */
     private void setOnClickListeners() {
-        // Слушатель нажатия на кнопку "Войти"
+        // Слушатель кнопки "Войти"
         buttonLogin.setOnClickListener(view -> {
-            // Получаем email и пароль из EditText
+            // Получаем почту и пароль
             String email = editTextEmail.getText().toString().trim();
             String password = editTextPassword.getText().toString().trim();
 
             // Проверяем, что поля не пустые
             if (!email.isEmpty() && !password.isEmpty())
-                // Вызываем метод входа из ViewModel
+                // Вызываем метод входа
                 loginViewModel.login(email, password);
             else {
                 Log.e(
@@ -211,33 +211,32 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
             }
         });
-        // Слушатель нажатия на кнопку "Регистрация"
+        // Слушатель кнопки "Регистрация"
         buttonRegister.setOnClickListener(view -> {
             Intent intent = RegistrationActivity.newIntent(LoginActivity.this);
             startActivity(intent);
         });
 
-        // Слушатель нажатия на TextView "Забыли пароль?"
+        // Слушатель TextView "Забыли пароль?"
         textViewForgotPassword.setOnClickListener(view -> {
-            // Получаем email из EditText
+            // Получаем почту
             String email = editTextEmail.getText().toString().trim();
 
-            // Проверяем, что email не пустой
+            // Проверяем, что почта не пустая
             if (TextUtils.isEmpty(email)) {
                 Log.e(
                         TAG,
                         "setOnClickListeners: " +
                                 R.string.enter_email
                 );
-                // Показываем тост с сообщением о необходимости ввести email
+                // Уведомляем пользователя об ошибке
                 Toast.makeText(this,
                         R.string.enter_email,
                         Toast.LENGTH_SHORT).show();
                 return;
             }
-            // Проверяем, что email имеет правильный формат
+            // Проверяем, что почта имеет правильный формат
             if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                // Логгирование для отладки, если email невалидный
                 Log.e(
                         TAG,
                         "setOnClickListeners: " +
@@ -249,7 +248,7 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
                 return;
             }
-            // Вызываем метод восстановления пароля из ViewModel
+            // Вызываем метод восстановления пароля
             loginViewModel.forgotPassword(email);
         });
     }
@@ -266,7 +265,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Создает Intent для запуска LoginActivity для авторизации.
+     * Создает Intent для запуска LoginActivity.
      *
      * @param context контекст
      * @return Intent

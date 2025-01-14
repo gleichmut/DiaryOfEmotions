@@ -11,7 +11,6 @@ import com.fuxkinghatred.diaryofemotions.viewmodels.NoteViewModel;
  * Фабрика для создания экземпляра {@link NoteViewModel}.
  */
 public class NoteViewModelFactory implements ViewModelProvider.Factory {
-
     /**
      * Репозиторий для работы с заметками.
      */
@@ -27,10 +26,10 @@ public class NoteViewModelFactory implements ViewModelProvider.Factory {
     }
 
     /**
-     * Метод для создания экземпляра ViewModel.
+     * Метод создания экземпляра ViewModel.
      *
-     * @param modelClass класс модели, экземпляр которой требуется создать
-     * @return созданный экземпляр модели
+     * @param modelClass класс модели, экземпляр которой требуется создать.
+     * @return созданный экземпляр модели.
      */
     @NonNull
     @Override

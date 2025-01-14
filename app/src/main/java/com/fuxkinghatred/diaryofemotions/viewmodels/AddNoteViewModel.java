@@ -7,7 +7,7 @@ import com.fuxkinghatred.diaryofemotions.models.Note;
 import com.fuxkinghatred.diaryofemotions.repositories.NoteRepository;
 
 /**
- * ViewModel для экрана добавления/редактирования заметки.
+ * ViewModel для AddNoteActivity.
  */
 public class AddNoteViewModel extends ViewModel {
     /**
@@ -18,7 +18,7 @@ public class AddNoteViewModel extends ViewModel {
     /**
      * Конструктор ViewModel.
      *
-     * @param repository Репозиторий для работы с заметками.
+     * @param repository репозиторий для работы с заметками.
      */
     public AddNoteViewModel(NoteRepository repository) {
         this.repository = repository;
@@ -27,7 +27,7 @@ public class AddNoteViewModel extends ViewModel {
     /**
      * Сохраняет заметку через репозиторий.
      *
-     * @param note Заметка для сохранения.
+     * @param note заметка для сохранения.
      * @return LiveData с сохраненной заметкой.
      */
     public LiveData<Note> saveNote(Note note) {

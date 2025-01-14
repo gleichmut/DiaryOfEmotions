@@ -28,11 +28,11 @@ import com.fuxkinghatred.diaryofemotions.constants.Constants;
 import java.util.List;
 
 /**
- * Адаптер для отображения изображений в RecyclerView.
+ * Адаптер изображений.
  */
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHolder> {
     /**
-     * Тэг для логирования.
+     * Тэг логирования.
      */
     private static final String TAG = Constants.Debug.TAG_IMAGE_ADAPTER;
     /**
@@ -40,7 +40,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
      */
     private final Context context;
     /**
-     * Список URI изображений для отображения.
+     * Список URI изображений.
      */
     private final List<Uri> imageUris;
     /**
@@ -56,16 +56,16 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
      */
     private final SparseBooleanArray isImageNotFound;
     /**
-     * Текст с информацией об начале анализа фото.
+     * Текст с информацией о начале анализа фото.
      */
     private final TextView textViewAnalyze;
 
     /**
      * Конструктор адаптера.
      *
-     * @param context   Контекст приложения.
-     * @param imageUris Список URI изображений для отображения.
-     * @param listener  Слушатель нажатий на элементы списка.
+     * @param context   контекст приложения.
+     * @param imageUris список URI изображений.
+     * @param listener  слушатель нажатий на элементы списка.
      */
     public ImageAdapter(Context context,
                         List<Uri> imageUris,
@@ -82,9 +82,9 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
     /**
      * Создает новый ViewHolder для элемента списка.
      *
-     * @param parent   Родительский ViewGroup.
-     * @param viewType Тип view.
-     * @return Новый ViewHolder.
+     * @param parent   родительский ViewGroup.
+     * @param viewType тип view.
+     * @return новый ViewHolder.
      */
     @NonNull
     @Override
@@ -99,7 +99,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
      * Связывает данные с ViewHolder.
      *
      * @param holder   ViewHolder.
-     * @param position Позиция элемента в списке.
+     * @param position позиция элемента в списке.
      */
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
@@ -143,7 +143,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
                 })
                 .into(holder.imageView);
         holder.itemView.setOnClickListener(v -> {
-            //Если изображение загружено, то даем клик
+            // Если изображение загружено, то разрешаем клик
             if (isImageLoaded.get(holder.getAdapterPosition())) {
                 listener.onItemClick(uri);
             }
@@ -151,11 +151,11 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 
         holder.itemView.setOnLongClickListener(v -> {
             if (isImageNotFound.get(holder.getAdapterPosition())) {
-                //Если изображение НЕ загружено, то даем долгий клик
+                // Если изображение НЕ загружено, то разрешаем долгий клик
                 listener.onItemLongClick(uri, holder.getAdapterPosition());
                 return true;
             } else if (isImageLoaded.get(holder.getAdapterPosition())) {
-                //Если изображение загружено, то даем долгий клик
+                // Если изображение загружено, то разрешаем долгий клик
                 listener.onItemLongClick(uri, holder.getAdapterPosition());
                 return true;
             }
@@ -188,7 +188,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
     /**
      * Возвращает количество элементов в списке.
      *
-     * @return Количество элементов в списке.
+     * @return количество элементов в списке.
      */
     @Override
     public int getItemCount() {
@@ -200,7 +200,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
      */
     public static class ImageViewHolder extends RecyclerView.ViewHolder {
         /**
-         * ImageView для отображения изображения.
+         * Изображение.
          */
         final ImageView imageView;
 
@@ -216,21 +216,21 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
     }
 
     /**
-     * Интерфейс для обработки нажатий на элементы списка.
+     * Интерфейс обработки нажатий на элементы списка.
      */
     public interface OnItemClickListener {
         /**
-         * Метод вызывается при нажатии на элемент списка.
+         * Клик по элементу списка.
          *
          * @param imageUri URI изображения.
          */
         void onItemClick(Uri imageUri);
 
         /**
-         * Метод вызывается при долгом нажатии на элемент списка.
+         * Долгий клик по элементу списка.
          *
          * @param imageUri URI изображения.
-         * @param position Позиция элемента в списке.
+         * @param position позиция элемента в списке.
          */
         void onItemLongClick(Uri imageUri, int position);
     }

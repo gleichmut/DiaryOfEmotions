@@ -23,39 +23,44 @@ import com.fuxkinghatred.diaryofemotions.utils.ErrorUtils;
 import com.fuxkinghatred.diaryofemotions.viewmodels.RegistrationViewModel;
 
 /**
- * Активность регистрации.
+ * Activity регистрации.
  */
 public class RegistrationActivity extends AppCompatActivity {
     /**
-     * Тег для логирования.
+     * Тег логирования.
      */
     private static final String TAG = Constants.Debug.TAG_REGISTRATION_ACTIVITY;
 
     /**
-     * ViewModel для регистрации пользователя.
+     * ViewModel для RegistrationActivity.
      */
     private RegistrationViewModel registrationViewModel;
 
     /**
-     * EditText для ввода имени пользователя.
+     * Поле ввода имени пользователя.
      */
     private EditText editTextName;
 
     /**
-     * EditText для ввода email пользователя.
+     * Поле ввода почты.
      */
     private EditText editTextEmail;
 
     /**
-     * EditText для ввода пароля пользователя.
+     * Поле ввода пароля.
      */
     private EditText editTextPassword;
 
     /**
-     * Кнопка для регистрации.
+     * Кнопка регистрации.
      */
     private Button buttonRegister;
 
+    /**
+     * Метод onCreate вызывается при создании Activity.
+     *
+     * @param savedInstanceState сохраненное состояние Activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,12 +77,12 @@ public class RegistrationActivity extends AppCompatActivity {
                 });
         // Инициализация view элементов
         initViews();
-        // Установка ViewModelProviders
-        setViewModelProviders();
+        // Установка ViewModel
+        setViewModelProvider();
         // Установка наблюдателей
         setObservers();
 
-        // Установка слушателя для кнопки регистрации
+        // Установка слушателя кнопки регистрации
         buttonRegister.setOnClickListener(view -> {
             // Получение введенных данных
             String email = getTrimmedValue(editTextEmail);
@@ -113,7 +118,7 @@ public class RegistrationActivity extends AppCompatActivity {
             }
             // Проверка на заполненность всех полей
             if (!email.isEmpty() && !password.isEmpty() && !name.isEmpty())
-                // Вызов метода регистрации из ViewModel
+                // Вызов метода регистрации
                 try {
                     registrationViewModel.register(email, password, name);
                 } catch (Exception e) {
@@ -154,7 +159,7 @@ public class RegistrationActivity extends AppCompatActivity {
     /**
      * Валидация почты.
      *
-     * @param email почты
+     * @param email почта
      * @return true - если соответствует регулярному выражению, иначе false
      */
     private boolean validateEmail(String email) {
@@ -164,7 +169,7 @@ public class RegistrationActivity extends AppCompatActivity {
     /**
      * Валидация пароля.
      *
-     * @param password пароля
+     * @param password пароль
      * @return true - если длина пароля больше 5 символов, иначе false
      */
     private boolean validatePassword(String password) {
@@ -174,7 +179,7 @@ public class RegistrationActivity extends AppCompatActivity {
     /**
      * Инициализирует ViewModel.
      */
-    private void setViewModelProviders() {
+    private void setViewModelProvider() {
         registrationViewModel = new ViewModelProvider(this).get(RegistrationViewModel.class);
     }
 
@@ -182,7 +187,7 @@ public class RegistrationActivity extends AppCompatActivity {
      * Устанавливает наблюдателей для LiveData.
      */
     private void setObservers() {
-        // Наблюдатель за ошибками регистрации
+        // Наблюдатель ошибок регистрации
         registrationViewModel.getError().observe(this, error -> {
             Log.d(
                     TAG,
@@ -238,17 +243,17 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     /**
-     * Получает текст из EditText и удаляет пробелы в начале и конце строки
+     * Получает текст из EditText и удаляет пробелы в начале и конце строки.
      *
      * @param editText EditText, из которого нужно получить текст
-     * @return Строка без пробелов в начале и конце
+     * @return строка без пробелов в начале и конце
      */
     private String getTrimmedValue(EditText editText) {
         return editText.getText().toString().trim();
     }
 
     /**
-     * Инициализирует View элементы
+     * Инициализирует View элементы.
      */
     private void initViews() {
         editTextEmail    = findViewById(R.id.editTextEmail);
@@ -260,7 +265,7 @@ public class RegistrationActivity extends AppCompatActivity {
     /**
      * Создает Intent для запуска RegistrationActivity.
      *
-     * @param context Контекст
+     * @param context контекст
      * @return Intent
      */
     public static Intent newIntent(Context context) {

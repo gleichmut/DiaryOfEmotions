@@ -12,11 +12,11 @@ import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 
 /**
- * ViewModel для управления процессом аутентификации пользователя.
+ * ViewModel для LoginActivity.
  */
 public class LoginViewModel extends ViewModel {
     /**
-     * Тег для логирования.
+     * Тег логирования.
      */
     private static final String TAG = Constants.Debug.TAG_LOGIN_VIEW_MODEL;
     /**
@@ -24,22 +24,22 @@ public class LoginViewModel extends ViewModel {
      */
     private FirebaseAuth auth;
     /**
-     * LiveData, хранящая сообщение об ошибке аутентификации.
+     * LiveData ошибок аутентификации.
      */
     private final MutableLiveData<String> error = new MutableLiveData<>();
     /**
-     * LiveData, хранящая текущего аутентифицированного пользователя.
+     * LiveData текущего аутентифицированного пользователя.
      */
     private final MutableLiveData<FirebaseUser> user = new MutableLiveData<>(null);
     /**
-     * LiveData, хранящая флаг, указывающий на успешную отправку письма для восстановления пароля.
+     * LiveData флага успешности отправки письма для восстановления пароля.
      */
     private final MutableLiveData<Boolean> passwordResetSent = new MutableLiveData<>();
 
     /**
-     * Возвращает LiveData с сообщением об ошибке.
+     * Возвращает LiveData сообщения об ошибке.
      *
-     * @return LiveData с сообщением об ошибке.
+     * @return LiveData сообщения об ошибке.
      */
     public LiveData<String> getError() {
         return error;
@@ -72,9 +72,9 @@ public class LoginViewModel extends ViewModel {
     }
 
     /**
-     * Возвращает LiveData с флагом, указывающим на успешную отправку письма для восстановления пароля.
+     * Возвращает LiveData флага успешности отправки письма для восстановления пароля.
      *
-     * @return LiveData с флагом успешной отправки письма для восстановления пароля.
+     * @return LiveData флага успешности отправки письма для восстановления пароля.
      */
     public LiveData<Boolean> getPasswordResetSent() {
         return passwordResetSent;
@@ -101,8 +101,8 @@ public class LoginViewModel extends ViewModel {
      * Осуществляет вход пользователя в систему с помощью email и пароля.
      * В случае неудачи устанавливает сообщение об ошибке в LiveData.
      *
-     * @param email    Email пользователя.
-     * @param password Пароль пользователя.
+     * @param email    почта пользователя.
+     * @param password пароль пользователя.
      */
     public void login(String email, String password) {
         auth.signInWithEmailAndPassword(email, password)
@@ -123,12 +123,12 @@ public class LoginViewModel extends ViewModel {
     }
 
     /**
-     * Отправляет письмо для восстановления пароля на указанный email.
+     * Отправляет письмо для восстановления пароля на указанную почту.
      * В случае успешной отправки устанавливает флаг успешной отправки в LiveData.
      * В случае ошибки устанавливает сообщение об ошибке в LiveData.
-     * Если пользователь с таким email не найден, устанавливает соответствующее сообщение об ошибке.
+     * Если пользователь с такой почтой не найден, устанавливает соответствующее сообщение об ошибке.
      *
-     * @param email Email пользователя для восстановления пароля.
+     * @param email почта пользователя для восстановления пароля.
      */
     public void forgotPassword(String email) {
         auth.sendPasswordResetEmail(email)

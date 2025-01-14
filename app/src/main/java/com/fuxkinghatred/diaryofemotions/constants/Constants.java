@@ -5,91 +5,90 @@ package com.fuxkinghatred.diaryofemotions.constants;
  */
 public class Constants {
     /**
-     * Внутренний класс для хранения тегов для логирования.
+     * Внутренний класс для хранения тегов логирования.
      */
     public static class Debug {
 
         /**
-         * Тег для логирования в активности добавления заметки.
+         * Тег логирования AddNoteActivity.
          */
         public static final String TAG_ADD_NOTE_ACTIVITY = "AddNoteActivity";
 
         /**
-         * Тег для логирования в активности авторизации.
+         * Тег логирования LoginActivity.
          */
         public static final String TAG_LOGIN_ACTIVITY = "LoginActivity";
 
         /**
-         * Тег для логирования в активности списка заметок.
+         * Тег логирования MyNotesActivity.
          */
         public static final String TAG_MY_NOTES_ACTIVITY = "MyNotesActivity";
 
         /**
-         * Тег для логирования в активности заметки.
+         * Тег логирования NoteActivity.
          */
         public static final String TAG_NOTE_ACTIVITY = "NoteActivity";
 
         /**
-         * Тег для логирования в активности регистрации.
+         * Тег логирования RegistrationActivity.
          */
         public static final String TAG_REGISTRATION_ACTIVITY = "RegisterActivity";
 
         /**
-         * Тег для логирования в репозитории заметок.
+         * Тег логирования NoteRepository.
          */
         public static final String TAG_NOTE_REPOSITORY = "NoteRepository";
 
         /**
-         * Тег для логирования в ViewModel входа.
+         * Тег логирования LoginViewModel.
          */
         public static final String TAG_LOGIN_VIEW_MODEL = "LoginViewModel";
 
         /**
-         * Тег для логирования в ViewModel регистрации.
+         * Тег логирования RegistrationViewModel.
          */
         public static final String TAG_REGISTRATION_VIEW_MODEL = "RegistrationViewModel";
 
         /**
-         * Тег для логирования в активности анализа фотографии.
+         * Тег логирования AnalyzePhotosActivity.
          */
         public static final String TAG_ANALYZE_PHOTO_ACTIVITY = "AnalyzePhotoActivity";
 
         /**
-         * Тег для логирования в ViewModel анализа фотографии.
+         * Тег логирования AnalyzePhotoViewModel.
          */
         public static final String TAG_ANALYZE_PHOTO_VIEW_MODEL = "AnalyzePhotoViewModel";
 
         /**
-         * Тег для логирования в адаптере изображений.
+         * Тег логирования ImageAdapter.
          */
         public static final String TAG_IMAGE_ADAPTER = "ImageAdapter";
         /**
-         * Тег для логирования в репозитории предсказания эмоций.
+         * Тег логирования EmotionPredictionRepository.
          */
         public static final String TAG_EMOTION_PREDICTION_REPOSITORY = "EmotionPredictionRepository";
         /**
-         * Тег для логирования в колбеке удаления заметки.
+         * Тег логирования SwipeToDeleteCallback.
          */
         public static final String TAG_SWIPE_TO_DELETE_CALLBACK = "SwipeToDeleteCallback";
     }
 
     /**
-     * Внутренний класс для хранения ключей интентов.
+     * Внутренний класс для хранения ключей Intent.
      */
     public static class Extras {
-
         /**
-         * Экстра для передачи идентификатора текущего пользователя.
+         * Экстра передачи идентификатора текущего пользователя.
          */
         public static final String EXTRA_CURRENT_USER = "currentUserId";
 
         /**
-         * Экстра для передачи URI изображения.
+         * Экстра передачи URI изображения.
          */
         public static final String EXTRA_IMAGE_URI = "imageUri";
 
         /**
-         * Экстра для передачи текущей заметки.
+         * Экстра передачи текущей заметки.
          */
         public static final String EXTRA_CURRENT_NOTE = "currentNote";
     }
@@ -98,7 +97,6 @@ public class Constants {
      * Внутренний класс для хранения запросов к базе данных.
      */
     public static class Queries {
-
         /**
          * Запрос для сортировки по ID пользователя.
          */
@@ -109,9 +107,8 @@ public class Constants {
      * Внутренний класс для хранения кодов запросов.
      */
     public static class Requests {
-
         /**
-         * Код запроса для записи аудио.
+         * Код запроса записи аудио.
          */
         public static final int REQUEST_CODE_RECORD_AUDIO = 1;
     }
@@ -120,7 +117,6 @@ public class Constants {
      * Внутренний класс для хранения названий таблиц в базе данных.
      */
     public static class DatabaseReferences {
-
         /**
          * Таблица с предсказанными эмоциями и значениями цвета.
          */

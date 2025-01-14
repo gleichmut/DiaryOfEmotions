@@ -36,27 +36,27 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.List;
 
 /**
- * Активность списка заметок пользователя.
+ * Activity списка заметок пользователя.
  */
 public class MyNotesActivity extends AppCompatActivity implements MyNotesAdapter.OnItemClickListener,
         MyNotesAdapter.OnNoteDeletedListener {
     /**
-     * Тег для логирования.
+     * Тег логирования.
      */
     private static final String TAG = Constants.Debug.TAG_MY_NOTES_ACTIVITY;
 
     /**
-     * ViewModel для работы с заметкой.
+     * ViewModel для NoteActivity.
      */
     private NoteViewModel noteViewModel;
 
     /**
-     * ViewModel для работы с общими данными о заметках.
+     * ViewModel для MyNotesActivity.
      */
     private MyNotesViewModel myNotesViewModel;
 
     /**
-     * Адаптер для RecyclerView.
+     * Адаптер списка заметок.
      */
     private MyNotesAdapter myNotesAdapter;
 
@@ -66,7 +66,7 @@ public class MyNotesActivity extends AppCompatActivity implements MyNotesAdapter
     private ProgressBar progressBar;
 
     /**
-     * Кнопка для выхода из аккаунта.
+     * Кнопка выхода из аккаунта.
      */
     private ImageButton imageButtonLogoff;
 
@@ -76,7 +76,7 @@ public class MyNotesActivity extends AppCompatActivity implements MyNotesAdapter
     private RecyclerView recyclerViewMyNotes;
 
     /**
-     * Кнопка для добавления новой заметки.
+     * Кнопка добавления новой заметки.
      */
     private FloatingActionButton buttonAddNote;
 
@@ -86,7 +86,7 @@ public class MyNotesActivity extends AppCompatActivity implements MyNotesAdapter
     private long startTime;
 
     /**
-     * Лаунчер для добавления заметки.
+     * Лаунчер добавления заметки.
      */
     private ActivityResultLauncher<Intent> addNoteLauncher;
 
@@ -111,7 +111,7 @@ public class MyNotesActivity extends AppCompatActivity implements MyNotesAdapter
                 });
 
         // Проверка, авторизован ли пользователь
-        // Если нет, перенаправляем на экран логина
+        // Если нет, перенаправляем на экран авторизации
         if (!SharedPreferencesUtils.isLoggedIn(this)) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
@@ -121,8 +121,8 @@ public class MyNotesActivity extends AppCompatActivity implements MyNotesAdapter
         // Инициализация view элементов
         initViews();
         progressBar.setVisibility(View.VISIBLE);
-        // Установка ViewModelProviders
-        setViewModelProviders();
+        // Установка ViewModel
+        setViewModelProvider();
         // Установка наблюдателей
         setObservers();
         // Установка слушателей
@@ -146,10 +146,10 @@ public class MyNotesActivity extends AppCompatActivity implements MyNotesAdapter
     }
 
     /**
-     * Устанавливает слушателей для UI элементов.
+     * Устанавливает слушателей.
      */
     private void setListeners() {
-        // Слушатель для кнопки добавления заметки
+        // Слушатель кнопки добавления заметки
         buttonAddNote.setOnClickListener(view -> {
             Log.d(
                     TAG,
@@ -160,7 +160,7 @@ public class MyNotesActivity extends AppCompatActivity implements MyNotesAdapter
             addNoteLauncher.launch(intent);
         });
 
-        // Слушатель для кнопки выхода из аккаунта
+        // Слушатель кнопки выхода из аккаунта
         imageButtonLogoff.setOnClickListener(view ->
                 {
                     myNotesViewModel.logout();
@@ -177,7 +177,7 @@ public class MyNotesActivity extends AppCompatActivity implements MyNotesAdapter
     private void setObservers() {
         // Запись времени начала загрузки
         startTime = System.currentTimeMillis();
-        // Наблюдение за изменениями списка заметок текущего пользователя
+        // Наблюдение изменений списка заметок текущего пользователя
         noteViewModel.getAllNotesForCurrentUser().observe(this, notes -> {
             Log.d(
                     TAG,
@@ -189,7 +189,7 @@ public class MyNotesActivity extends AppCompatActivity implements MyNotesAdapter
     }
 
     /**
-     * Метод для запроса LiveData списка заметок
+     * Метод запроса LiveData списка заметок.
      */
     public void reloadNotes() {
         noteViewModel.getAllNotesForCurrentUser().observe(this, this::updateRecyclerView);
@@ -224,19 +224,16 @@ public class MyNotesActivity extends AppCompatActivity implements MyNotesAdapter
     /**
      * Инициализирует ViewModel.
      */
-    private void setViewModelProviders() {
-        // Инициализация MyNotesViewModel
+    private void setViewModelProvider() {
         myNotesViewModel = new ViewModelProvider(this).get(MyNotesViewModel.class);
-        // Инициализация репозитория заметок с ID текущего пользователя
+        // Инициализация репозитория заметок текущего пользователя
         NoteRepository repository = new NoteRepository(getExtraIds());
-        // Создание фабрики для NoteViewModel
         NoteViewModelFactory factory = new NoteViewModelFactory(repository);
-        // Инициализация NoteViewModel
         noteViewModel = new ViewModelProvider(this, factory).get(NoteViewModel.class);
     }
 
     /**
-     * Получает ID текущего пользователя из Intent
+     * Получает ID текущего пользователя из Intent.
      *
      * @return ID текущего пользователя
      */
@@ -245,32 +242,33 @@ public class MyNotesActivity extends AppCompatActivity implements MyNotesAdapter
     }
 
     /**
-     * Метод, вызываемый при удалении заметки
+     * Удаляет заметку.
      *
-     * @param noteId ID удаленной заметки
-     * @param note   Удаленная заметка
+     * @param noteId id удаляемой заметки
+     * @param note   удаляемая заметка
      */
     @Override
     public void onNoteDeleted(String noteId, Note note) {
         Log.d(TAG, "onNoteDeleted: noteId = " + noteId + ", note text = " + note.text);
         noteViewModel.deleteNote(noteId);
+        // Обновляем список заметок
         reloadNotes();
     }
 
     /**
-     * Метод, вызываемый при нажатии на заметку
+     * Метод, вызываемый при нажатии на заметку.
      *
-     * @param note Нажатая заметка
+     * @param note нажатая заметка
      */
     @Override
     public void onItemClick(Note note) {
-        // Создание и запуск intent для перехода к activity просмотра заметки
+        // Создание и запуск Intent для перехода к NoteActivity
         Intent intent = NoteActivity.newIntent(MyNotesActivity.this, note);
         startActivity(intent);
     }
 
     /**
-     * Инициализирует View элементы
+     * Инициализирует View элементы.
      */
     private void initViews() {
         imageButtonLogoff   = findViewById(R.id.imageButtonLogoff);
@@ -280,11 +278,11 @@ public class MyNotesActivity extends AppCompatActivity implements MyNotesAdapter
     }
 
     /**
-     * Создает Intent для запуска MyNotesActivity
+     * Создает Intent для запуска MyNotesActivity.
      *
-     * @param context       Контекст
+     * @param context       контекст
      * @param currentUserId ID текущего пользователя
-     * @return Intent для запуска MyNotesActivity
+     * @return Intent
      */
     public static Intent newIntent(Context context, String currentUserId) {
         Intent intent = new Intent(context, MyNotesActivity.class);

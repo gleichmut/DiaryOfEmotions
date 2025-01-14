@@ -1,25 +1,28 @@
 package com.fuxkinghatred.diaryofemotions.apis.responses;
 
 /**
- * Класс ответа с предсказанием эмоции.
+ * Модель ответа с предсказанием эмоции.
  */
 public class PredictionResponse {
 
+    /**
+     * Предсказанная эмоция.
+     */
     private String predicted_emotion;
 
     /**
-     * Геттер для получения предсказанной эмоции.
+     * Геттер предсказанной эмоции.
      *
-     * @return предсказанная эмоция
+     * @return предсказанная эмоция.
      */
     public String getPredictedEmotion() {
         return predicted_emotion;
     }
 
     /**
-     * Сеттер для установки предсказанной эмоции.
+     * Сеттер предсказанной эмоции.
      *
-     * @param predictedEmotion строка с предсказанной эмоцией
+     * @param predictedEmotion предсказанная эмоция.
      */
     public void setPredictedEmotion(String predictedEmotion) {
         this.predicted_emotion = predictedEmotion;

@@ -4,14 +4,14 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 /**
- * Утилитарный класс для работы с SharedPreferences.
+ * Утилиты для Shared Preferences.
  */
 public class SharedPreferencesUtils {
 
     /**
      * Название файла SharedPreferences.
      */
-    private static final String PREFS_NAME       = "user_prefs";
+    private static final String PREFS_NAME = "user_prefs";
     /**
      * Ключ для хранения состояния авторизации.
      */

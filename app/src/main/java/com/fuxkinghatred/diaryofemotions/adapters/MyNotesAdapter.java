@@ -19,11 +19,11 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * Адаптер для отображения списка заметок в RecyclerView.
+ * Адаптер списка заметок.
  */
 public class MyNotesAdapter extends RecyclerView.Adapter<MyNotesAdapter.NoteViewHolder> {
     /**
-     * Список заметок для отображения.
+     * Список заметок.
      */
     private List<Note> notes;
     /**
@@ -56,9 +56,9 @@ public class MyNotesAdapter extends RecyclerView.Adapter<MyNotesAdapter.NoteView
     /**
      * Конструктор адаптера.
      *
-     * @param notes                 Список заметок для отображения.
-     * @param onItemClick           Слушатель нажатий на элемент списка.
-     * @param onNoteDeletedListener Слушатель удаления заметки.
+     * @param notes                 список заметок для отображения.
+     * @param onItemClick           слушатель нажатий на элемент списка.
+     * @param onNoteDeletedListener слушатель удаления заметки.
      */
     public MyNotesAdapter(List<Note> notes,
                           OnItemClickListener onItemClick,
@@ -71,7 +71,7 @@ public class MyNotesAdapter extends RecyclerView.Adapter<MyNotesAdapter.NoteView
     /**
      * Обновление списка заметок.
      *
-     * @param newNotes обновленный список заметок
+     * @param newNotes обновленный список заметок.
      */
     public void updateData(List<Note> newNotes) {
         this.notes = newNotes;
@@ -82,7 +82,7 @@ public class MyNotesAdapter extends RecyclerView.Adapter<MyNotesAdapter.NoteView
      * Форматирует timestamp в строку даты и времени.
      *
      * @param timestamp timestamp в миллисекундах.
-     * @return Отформатированная строка даты и времени.
+     * @return отформатированная строка даты и времени.
      */
     private String formatTimestampToString(long timestamp) {
         Calendar calendar = Calendar.getInstance();
@@ -95,9 +95,9 @@ public class MyNotesAdapter extends RecyclerView.Adapter<MyNotesAdapter.NoteView
     /**
      * Создает новый ViewHolder для элемента списка.
      *
-     * @param parent   Родительский ViewGroup.
-     * @param viewType Тип view.
-     * @return Новый ViewHolder.
+     * @param parent   родительский ViewGroup.
+     * @param viewType тип view.
+     * @return новый ViewHolder.
      */
     @NonNull
     @Override
@@ -112,7 +112,7 @@ public class MyNotesAdapter extends RecyclerView.Adapter<MyNotesAdapter.NoteView
      * Связывает данные с ViewHolder.
      *
      * @param holder   ViewHolder.
-     * @param position Позиция элемента в списке.
+     * @param position позиция элемента в списке.
      */
     @Override
     public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
@@ -135,7 +135,7 @@ public class MyNotesAdapter extends RecyclerView.Adapter<MyNotesAdapter.NoteView
     /**
      * Возвращает количество элементов в списке.
      *
-     * @return Количество элементов в списке.
+     * @return количество элементов в списке.
      */
     @Override
     public int getItemCount() {
@@ -147,19 +147,19 @@ public class MyNotesAdapter extends RecyclerView.Adapter<MyNotesAdapter.NoteView
      */
     public static class NoteViewHolder extends RecyclerView.ViewHolder {
         /**
-         * TextView для отображения даты и времени заметки.
+         * TextView даты и времени заметки.
          */
         final TextView textViewDatetimeNote;
         /**
-         * TextView для отображения заголовка заметки.
+         * TextView заголовка заметки.
          */
         final TextView textViewTitleNote;
         /**
-         * TextView для отображения текста заметки.
+         * TextView текста заметки.
          */
         final TextView textViewTextNote;
         /**
-         * TextView для отображения количества изображений в заметке.
+         * TextView количества изображений в заметке.
          */
         final TextView textViewImageCount;
 
@@ -178,26 +178,26 @@ public class MyNotesAdapter extends RecyclerView.Adapter<MyNotesAdapter.NoteView
     }
 
     /**
-     * Интерфейс для обработки нажатий на элемент списка.
+     * Интерфейс обработки нажатий на элемент списка.
      */
     public interface OnItemClickListener {
         /**
-         * Метод вызывается при нажатии на заметку.
+         * Клик на заметку.
          *
-         * @param note Нажатая заметка.
+         * @param note нажатая заметка.
          */
         void onItemClick(Note note);
     }
 
     /**
-     * Интерфейс для обработки удаления заметки.
+     * Интерфейс удаления заметки.
      */
     public interface OnNoteDeletedListener {
         /**
          * Метод вызывается при удалении заметки.
          *
          * @param noteId ID удаленной заметки
-         * @param note   Удаленная заметка.
+         * @param note   удаленная заметка.
          */
         void onNoteDeleted(String noteId, Note note);
     }

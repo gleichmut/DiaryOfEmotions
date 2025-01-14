@@ -12,37 +12,36 @@ import com.fuxkinghatred.diaryofemotions.constants.Constants;
 import com.fuxkinghatred.diaryofemotions.models.Note;
 
 /**
- * • Обратный вызов для удаления элемента свайпом.
+ * Обратный вызов для удаления элемента свайпом.
  */
 public class SwipeToDeleteCallback extends ItemTouchHelper.SimpleCallback {
     /**
-     * Тег для логирования.
+     * Тег логирования.
      */
-
     private static final String TAG = Constants.Debug.TAG_SWIPE_TO_DELETE_CALLBACK;
     /**
-     * Адаптер для RecyclerView.
+     * Адаптер списка заметок.
      */
     private final MyNotesAdapter adapter;
 
     /**
-     * Конструктор для создания экземпляра обратного вызова.
+     * Конструктор экземпляра обратного вызова.
      *
-     * @param adapter адаптер для работы с элементами списка
+     * @param adapter адаптер для работы с элементами списка.
      */
     public SwipeToDeleteCallback(MyNotesAdapter adapter) {
-        // Поддерживаем только свайпы влево
+        // Поддерживаем только свайп влево
         super(0, ItemTouchHelper.LEFT);
         this.adapter = adapter;
     }
 
     /**
-     * Метод для обработки перемещения элементов.
+     * Перемещает элементы.
      *
-     * @param recyclerView виджет RecyclerView, в котором находится перемещаемый элемент
-     * @param viewHolder   держатель представления для перемещаемого элемента
-     * @param target       целевая позиция, куда нужно переместить элемент
-     * @return всегда возвращает false, поскольку мы не поддерживаем перемещение элементов
+     * @param recyclerView RecyclerView, в котором находится перемещаемый элемент.
+     * @param viewHolder   ViewHolder перемещаемого элемента.
+     * @param target       позиция, куда нужно переместить элемент.
+     * @return всегда возвращает false, поскольку мы не поддерживаем перемещение элементов.
      */
     @Override
     public boolean onMove(@NonNull RecyclerView recyclerView,
@@ -54,8 +53,8 @@ public class SwipeToDeleteCallback extends ItemTouchHelper.SimpleCallback {
     /**
      * Метод, вызываемый при успешном свайпе элемента.
      *
-     * @param viewHolder держатель представления для свайпа элемента
-     * @param direction  направление свайпа
+     * @param viewHolder ViewHolder представления для свайпа элемента.
+     * @param direction  направление свайпа.
      */
     @Override
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
@@ -75,15 +74,15 @@ public class SwipeToDeleteCallback extends ItemTouchHelper.SimpleCallback {
     }
 
     /**
-     * Метод для рисования фона при свайпе.
+     * Метод рисования фона при свайпе.
      *
-     * @param c                 холст для рисования
-     * @param recyclerView      виджет RecyclerView, в котором происходит свайп
-     * @param viewHolder        держатель представления для элемента, который свайпится
-     * @param dX                смещение по оси X
-     * @param dY                смещение по оси Y
-     * @param actionState       состояние действия
-     * @param isCurrentlyActive текущий активный статус
+     * @param c                 холст для рисования.
+     * @param recyclerView      RecyclerView, в котором происходит свайп.
+     * @param viewHolder        ViewHolder представления для элемента, который свайпится.
+     * @param dX                смещение по оси X.
+     * @param dY                смещение по оси Y.
+     * @param actionState       состояние действия.
+     * @param isCurrentlyActive текущий активный статус.
      */
     @Override
     public void onChildDraw(@NonNull Canvas c,

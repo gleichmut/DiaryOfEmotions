@@ -15,7 +15,7 @@ import com.fuxkinghatred.diaryofemotions.R;
 import com.fuxkinghatred.diaryofemotions.constants.Constants;
 
 /**
- * Активность с увеличенным изображением.
+ * Activity просмотра увеличенного изображения.
  */
 public class EnlargedImageViewActivity extends AppCompatActivity {
 

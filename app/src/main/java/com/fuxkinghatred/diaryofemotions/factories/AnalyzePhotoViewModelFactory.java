@@ -14,19 +14,19 @@ import com.fuxkinghatred.diaryofemotions.viewmodels.AnalyzePhotoViewModel;
  */
 public class AnalyzePhotoViewModelFactory implements ViewModelProvider.Factory {
     /**
-     * Репозиторий для предсказания эмоций.
+     * Репозиторий для работы с предсказаниями эмоций.
      */
     private final EmotionPredictionRepository emotionPredictionRepository;
     /**
      * Экземпляр приложения.
      */
-    private final Application                 application;
+    private final Application application;
 
     /**
      * Конструктор фабрики.
      *
-     * @param application                 экземпляр приложения
-     * @param emotionPredictionRepository репозиторий для предсказания эмоций
+     * @param application                 экземпляр приложения.
+     * @param emotionPredictionRepository репозиторий предсказаний эмоций.
      */
     public AnalyzePhotoViewModelFactory(Application application,
                                         EmotionPredictionRepository emotionPredictionRepository) {
@@ -35,10 +35,10 @@ public class AnalyzePhotoViewModelFactory implements ViewModelProvider.Factory {
     }
 
     /**
-     * Метод для создания экземпляра ViewModel.
+     * Метод создания экземпляра ViewModel.
      *
-     * @param modelClass класс модели, экземпляр которой требуется создать
-     * @return созданный экземпляр модели
+     * @param modelClass класс модели, экземпляр которой требуется создать.
+     * @return созданный экземпляр модели.
      */
     @NonNull
     @Override

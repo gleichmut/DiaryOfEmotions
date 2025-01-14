@@ -1,7 +1,7 @@
 package com.fuxkinghatred.diaryofemotions.models;
 
 /**
- * Класс, представляющий эмоцию.
+ * Модель эмоции.
  */
 public class Emotion {
 
@@ -16,10 +16,10 @@ public class Emotion {
     public final int resourceId;
 
     /**
-     * Конструктор для создания новой эмоции.
+     * Конструктор создания новой эмоции.
      *
-     * @param emotionName название эмоции
-     * @param resourceId  идентификатор ресурса, связанного с эмоцией
+     * @param emotionName название эмоции.
+     * @param resourceId  идентификатор ресурса, связанного с эмоцией.
      */
     public Emotion(String emotionName, int resourceId) {
         this.emotionName = emotionName;
