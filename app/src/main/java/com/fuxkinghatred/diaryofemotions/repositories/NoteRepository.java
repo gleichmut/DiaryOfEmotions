@@ -1,4 +1,3 @@
-
 package com.fuxkinghatred.diaryofemotions.repositories;
 
 import android.util.Log;

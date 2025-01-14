@@ -1,4 +1,3 @@
-
 package com.fuxkinghatred.diaryofemotions.activities;
 
 import android.Manifest;

@@ -1,4 +1,3 @@
-
 package com.fuxkinghatred.diaryofemotions.adapters;
 
 import android.content.Context;

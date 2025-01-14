@@ -1,9 +1,7 @@
 package com.fuxkinghatred.diaryofemotions.viewmodels;
 
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
-
 
 import com.fuxkinghatred.diaryofemotions.models.Note;
 import com.fuxkinghatred.diaryofemotions.repositories.NoteRepository;

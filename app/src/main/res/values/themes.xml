@@ -11,7 +11,6 @@
         <item name="fontFamily">@font/poiret_one</item>
         <item name="android:textColorHint">@color/dark_purple_red</item>
         <item name="android:textStyle">bold</item>
-
     </style>
 
     <style name="Theme.DiaryOfEmotions" parent="Base.Theme.DiaryOfEmotions" />

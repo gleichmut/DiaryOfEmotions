@@ -1,4 +1,3 @@
-
 package com.fuxkinghatred.diaryofemotions.viewmodels;
 
 import android.app.Application;
